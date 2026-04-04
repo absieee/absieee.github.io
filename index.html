@@ -916,8 +916,8 @@
   <div class="crossword-section fade-section">
     <div class="two-col">
       <div class="col">
-        <h3 id="puzzle-title" style="font-family: 'Playfair Display', serif;">Weekly Action Grid</h3>
-        <p id="puzzle-subtitle" style="font-size: 13px; color: var(--ink-faded); margin-bottom: 8px;">Rotates every week. Fill the rows with words that bias toward action.</p>
+        <h3 id="puzzle-title" style="font-family: 'Playfair Display', serif;">Weekly Mini Crossword</h3>
+        <p id="puzzle-subtitle" style="font-size: 13px; color: var(--ink-faded); margin-bottom: 8px;">New mini every week. Short, solvable, and mildly biased toward action.</p>
         <div class="crossword-grid" id="crossword"></div>
         <div id="crossword-msg"></div>
       </div>
@@ -958,40 +958,40 @@
 
   const weeklyPuzzles = [
     {
-      title: 'Weekly Action Grid',
-      subtitle: 'Week one energy: make something, test it, learn fast.',
-      words: ['BUILD', 'TESTS', 'LEARN', 'SHIPS', 'SCALE'],
-      clues: [
-        '1. Make the thing.',
-        '2. Validate it with something real.',
-        '3. Pull signal from the result.',
-        '4. Put it in users’ hands.',
-        '5. Worry about this after value exists.'
-      ]
+      title: 'Weekly Mini Crossword',
+      subtitle: 'New mini every week. This one is about making progress visible.',
+      rows: ['BUILD#', '#TEST#', 'LEARN#', '#SHIP#', 'SCALE#'],
+      across: {
+        1: 'Make the thing.',
+        2: 'Validate it with something real.',
+        3: 'Pull signal from the result.',
+        4: 'Put it in users’ hands.',
+        5: 'Worry about this after value exists.'
+      }
     },
     {
-      title: 'Weekly Action Grid',
-      subtitle: 'Week two energy: start before certainty shows up.',
-      words: ['START', 'DRAFT', 'CHECK', 'FIXES', 'LAUNCH'],
-      clues: [
-        '1. Begin before the plan feels perfect.',
-        '2. Write version one instead of waiting.',
-        '3. Verify the risky assumption.',
-        '4. Improve what broke.',
-        '5. Put it out into the world.'
-      ]
+      title: 'Weekly Mini Crossword',
+      subtitle: 'New mini every week. This one is about moving before certainty arrives.',
+      rows: ['START#', '#DRAFT', 'CHECK#', '#FIXES', 'LAUNCH'],
+      across: {
+        1: 'Begin before the plan feels perfect.',
+        2: 'Version one, not version forever.',
+        3: 'Verify the risky assumption.',
+        4: 'Improve what broke.',
+        5: 'Put it out into the world.'
+      }
     },
     {
-      title: 'Weekly Action Grid',
-      subtitle: 'Week three energy: prototype, learn, repeat.',
-      words: ['PROVE', 'PILOT', 'TWEAK', 'SOLVE', 'DOERS'],
-      clues: [
-        '1. Show the idea works.',
-        '2. Run a smaller real-world test.',
-        '3. Improve with small deliberate changes.',
-        '4. Focus on the user problem.',
-        '5. The people who move things forward.'
-      ]
+      title: 'Weekly Mini Crossword',
+      subtitle: 'New mini every week. This one is about prototypes and iteration.',
+      rows: ['PROVE#', '#PILOT', 'TWEAK#', '#SOLVE', 'DOERS#'],
+      across: {
+        1: 'Show the idea works.',
+        2: 'Run a smaller real-world test.',
+        3: 'Improve with small deliberate changes.',
+        4: 'Focus on the user problem.',
+        5: 'The people who move things forward.'
+      }
     }
   ];
 
@@ -1006,23 +1006,36 @@
   function renderPuzzle() {
     const weekNumber = getWeekNumber(new Date());
     const puzzle = weeklyPuzzles[(weekNumber - 1) % weeklyPuzzles.length];
+    const acrossEntries = [];
+    const cellInputs = [];
+    let clueNumber = 1;
 
     puzzleTitle.textContent = puzzle.title;
-    puzzleSubtitle.textContent = `${puzzle.subtitle} Rotates every week.`;
-    crossword.style.gridTemplateColumns = 'repeat(5, 32px)';
+    puzzleSubtitle.textContent = puzzle.subtitle;
+    crossword.style.gridTemplateColumns = `repeat(${puzzle.rows[0].length}, 32px)`;
     crossword.innerHTML = '';
-    clues.innerHTML = `<strong>This Week's Prompts</strong><br>${puzzle.clues.join('<br>')}`;
+    msg.textContent = '';
 
-    puzzle.words.forEach((word, rowIndex) => {
-      word.split('').forEach((letter, colIndex) => {
+    puzzle.rows.forEach((row, rowIndex) => {
+      row.split('').forEach((letter, colIndex) => {
         const cell = document.createElement('div');
+        const startsAcross = letter !== '#' && (colIndex === 0 || row[colIndex - 1] === '#');
+
+        if (letter === '#') {
+          cell.className = 'crossword-cell black';
+          crossword.appendChild(cell);
+          return;
+        }
+
         cell.className = 'crossword-cell';
 
-        if (colIndex === 0) {
+        if (startsAcross) {
           const number = document.createElement('span');
           number.className = 'cell-number';
-          number.textContent = String(rowIndex + 1);
+          number.textContent = String(clueNumber);
           cell.appendChild(number);
+          acrossEntries.push(`${clueNumber}. ${puzzle.across[clueNumber]}`);
+          clueNumber += 1;
         }
 
         const input = document.createElement('input');
@@ -1031,22 +1044,24 @@
         input.setAttribute('aria-label', `Row ${rowIndex + 1}, letter ${colIndex + 1}`);
         cell.appendChild(input);
         crossword.appendChild(cell);
+        cellInputs.push(input);
       });
     });
 
-    const inputs = Array.from(document.querySelectorAll('#crossword input'));
-    inputs.forEach((input, i) => {
+    clues.innerHTML = `<strong>Across</strong><br><span style="display:block; margin-bottom:8px;">New mini every week.</span>${acrossEntries.join('<br>')}`;
+
+    cellInputs.forEach((input, i) => {
       input.addEventListener('input', function () {
         this.value = this.value.toUpperCase();
-        if (this.value && i < inputs.length - 1) {
-          inputs[i + 1].focus();
+        if (this.value && i < cellInputs.length - 1) {
+          cellInputs[i + 1].focus();
         }
-        checkPuzzle(inputs);
+        checkPuzzle(cellInputs);
       });
 
       input.addEventListener('keydown', function (e) {
         if (e.key === 'Backspace' && !this.value && i > 0) {
-          inputs[i - 1].focus();
+          cellInputs[i - 1].focus();
         }
       });
     });
