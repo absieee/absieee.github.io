@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Abhishek Times — Est. whenever he felt like it</title>
 <meta name="description" content="The personal website of Abhishek — Product Manager, Tennis Enthusiast, Builder of Things. Read all about it.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 
 <!-- Fonts: Old Standard TT for that classic broadsheet feel, Playfair Display for headlines -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,9 +31,9 @@
   body {
     background: #d4cec3;
     color: var(--ink);
-    font-family: 'Old Standard TT', 'Libre Baskerville', Georgia, serif;
-    font-size: 15px;
-    line-height: 1.65;
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-size: 16px;
+    line-height: 1.75;
     -webkit-font-smoothing: antialiased;
   }
 
@@ -183,8 +184,8 @@
   .byline span { color: var(--red-accent); }
 
   .main-headline .lede {
-    font-size: 16px;
-    line-height: 1.7;
+    font-size: 17px;
+    line-height: 1.8;
   }
 
   .main-headline .lede::first-letter {
@@ -413,6 +414,21 @@
     border-left: 3px solid var(--red-accent);
     padding-left: 16px;
     margin: 16px 0;
+  }
+
+  .editorial-box .story-link {
+    display: inline-block;
+    margin-top: 8px;
+    color: var(--red-accent);
+    text-decoration: none;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+  }
+
+  .editorial-box .story-link:hover {
+    text-decoration: underline;
   }
 
   /* ── CROSSWORD EASTER EGG ───────────────────────── */
@@ -742,8 +758,8 @@
       <h2>Product Manager Who Actually Builds Things Shocks Absolutely Nobody Who Knows Him</h2>
       <div class="subhead">Entrepreneurial technologist combines strategic vision with hands-on execution; refuses to "just make a deck about it"</div>
       <div class="byline">By <span>The Abhishek Times Staff</span> · Front Page</div>
-      <p class="lede">Abhishek — a Product Manager by trade, a builder by instinct, and a tennis player by weekend — has been described by former colleagues as "the PM who actually opens the codebase" and "the guy who brings system architecture diagrams to standup and nobody's mad about it." His career sits at the intersection of product strategy and engineering execution, a place where most people put a Venn diagram on a slide and he puts working software.</p>
-      <p style="margin-top: 12px;">He has been known to write JIRA stories with acceptance criteria so detailed they border on novellas, send stakeholder updates people actually read, and debate database schemas at lunch. He is also quite good at tennis, though "quite good" is his phrasing and should be taken with the same grain of salt as any self-reported sprint velocity.</p>
+      <p class="lede">Abhishek is a product manager who likes being close to the work: strategy, systems thinking, execution, and the occasional prototype when words are no longer enough. He sits comfortably between product and engineering, which is usually where the useful conversations happen.</p>
+      <p style="margin-top: 12px;">He writes clearly, thinks commercially, and enjoys turning fuzzy ideas into something shippable. Also plays a lot of tennis, which explains the optimism.</p>
       <p class="continuation">Continued on page everywhere-you-look →</p>
     </div>
 
@@ -751,24 +767,24 @@
       <div class="sidebar-item">
         <div class="sidebar-tag">Late Breaking</div>
         <h3>System Design Skills Described As "Genuinely Dangerous"</h3>
-        <p>Sources confirm Abhishek can whiteboard a distributed system architecture before most PMs have finished asking "what's a microservice?"</p>
+        <p>Can hold his own in technical conversations and usually asks the question that matters.</p>
       </div>
       <div class="sidebar-item">
         <div class="sidebar-tag">Enterprise</div>
         <h3>Stakeholder Updates Delivered On Time, Read Without Dread</h3>
-        <p>In a feat rarely seen in modern enterprise, status updates were both accurate and under 200 words.</p>
+        <p>Status updates are concise, useful, and unlikely to ruin anyone's morning.</p>
       </div>
       <div class="sidebar-item">
         <div class="sidebar-tag">Analysis</div>
         <h3>The JIRA Board Is Clean And We're Terrified</h3>
-        <p>Sprint backlog groomed, stories pointed, acceptance criteria written. Analysts suspect foul play.</p>
+        <p>Backlogs get tidied, priorities get clearer, and ambiguity tends not to survive long.</p>
       </div>
     </div>
   </div>
 
   <!-- ═══ PULL QUOTE ═══ -->
   <div class="pull-quote fade-section">
-    "I believe a PM should be dangerous enough to sketch the architecture, wise enough to let engineering own it, and disciplined enough to still do the boring admin work."
+    "A good PM should understand the system, respect the people building it, and still be willing to do the boring operational work."
     <span class="attribution">— Abhishek, in conversation with himself at 2am</span>
   </div>
 
@@ -779,23 +795,23 @@
   <div class="three-col fade-section">
     <div class="col">
       <h3>Product Strategy & Execution</h3>
-      <p>Roadmap planning that starts with user problems, not feature requests. PRDs with actual trade-off analysis. Sprint planning that engineering doesn't actively dread. Metrics that measure outcomes, not output.</p>
+      <p>Roadmaps rooted in user problems, clear trade-offs, and practical delivery. Strong on discovery, prioritisation, and turning intent into shipped work.</p>
       <h4>The Boring Stuff</h4>
-      <p>JIRA administration, sprint ceremonies, backlog grooming, release notes, changelog management, stakeholder alignment emails, capacity planning spreadsheets. Yes, all of it. Voluntarily.</p>
+      <p>Backlogs, release notes, sprint rituals, stakeholder comms, and the admin that keeps teams moving.</p>
     </div>
 
     <div class="col">
       <h3>Technical Depth</h3>
-      <p>System architecture discussions where he contributes, not just listens. API design reviews. Data modelling conversations. He reads pull requests for context, not to pretend he's an engineer. Knows enough to ask the right questions and recognise when something will blow up at scale.</p>
+      <p>Comfortable in architecture, API, and data conversations. Technical enough to ask sharper questions and spot risk early.</p>
       <h4>Builder Mode</h4>
-      <p>Can prototype ideas himself. This website, for instance — no template, no framework, no AI. Just HTML, CSS, and stubbornness. Believes PMs who can build have an unfair advantage.</p>
+      <p>Can prototype ideas directly. This site is intentionally simple: static HTML, CSS, and a bit of stubbornness.</p>
     </div>
 
     <div class="col">
       <h3>The Entrepreneurial Bit</h3>
-      <p>Thinks like a founder even when employed. Obsessed with unit economics, market timing, and the gap between what users say they want and what they actually do. Has strong opinions on pricing strategy, go-to-market, and why most MVPs aren't minimal enough.</p>
+      <p>Thinks with a founder's bias toward speed, clarity, and commercial reality. Interested in product-market fit, pricing, and useful MVPs.</p>
       <h4>Communication</h4>
-      <p>Writes stakeholder updates people read. Runs meetings with agendas. Follows up on action items. Treats clear communication as a core PM skill, not an afterthought.</p>
+      <p>Clear writing, tidy meetings, and follow-through. Communication is treated as part of the job, not theatre around it.</p>
     </div>
   </div>
 
@@ -810,9 +826,8 @@
     <div class="two-col">
       <div class="col">
         <h3>Tennis: A Love Story (With Unforced Errors)</h3>
-        <p>Abhishek plays tennis the way he manages products — with strategic intent, occasional brilliance, and a statistically improbable number of unforced errors that he will explain away using first-principles reasoning.</p>
-        <p style="margin-top: 8px;">His forehand is a weapon. His backhand is a work in progress. His serve is best described as "character-building." He watches every Grand Slam with the analytical intensity of a man reviewing sprint metrics.</p>
-        <p style="margin-top: 8px;">Favourite player to study: whoever is winning, because he's a product manager and he studies what works.</p>
+        <p>Abhishek plays tennis with the same energy he brings to product work: strategic intent, occasional flashes of brilliance, and regular post-match analysis.</p>
+        <p style="margin-top: 8px;">Forehand: useful. Backhand: improving. Serve: a live experiment.</p>
 <div class="tennis-ascii">
       |           |
       |    . *    |
@@ -861,27 +876,24 @@
 
   <!-- ═══ OPINION / EDITORIAL ═══ -->
   <hr class="section-rule">
-  <div class="section-label fade-section">Opinion & Editorial</div>
+  <div class="section-label fade-section">From The Blog</div>
 
   <div class="two-col fade-section">
     <div class="col">
       <div class="editorial-box">
-        <div class="opinion-label">Guest Editorial by Abhishek</div>
+        <div class="opinion-label">Latest Writing</div>
         <h3>Why Every PM Should Build Something Ugly At Least Once</h3>
-        <p>There's a particular kind of humility you only get from staring at your own CSS for three hours wondering why a div won't centre. It's the same humility that makes you better at writing specs — because you've lived the pain of ambiguous requirements from the other side.</p>
-        <p>PMs who can build aren't better because they can replace engineers. They're better because they know what they're asking for. They write clearer stories. They scope more realistically. They don't say "it should be easy" because they've learned that nothing is easy and everything is a div that won't centre.</p>
-        <blockquote>"Ship the ugly thing. Learn from it. Then write a better JIRA story next time."</blockquote>
+        <p>A short argument for making rough prototypes, learning from friction, and becoming a more grounded collaborator in the process.</p>
+        <a class="story-link" href="https://absieee.github.io/til/" target="_blank" rel="noreferrer">Read on the blog →</a>
       </div>
     </div>
 
     <div class="col" style="border-right: none;">
       <div class="editorial-box">
-        <div class="opinion-label">Letters to the Editor</div>
-        <h3>On The Matter of "Wearing Many Hats"</h3>
-        <p><strong>Dear Editor,</strong></p>
-        <p>I notice Abhishek claims to be a PM, a builder, and a tennis player simultaneously. In my day, we picked one thing and were mediocre at it with dignity.</p>
-        <p style="text-align: right; font-style: italic; color: var(--ink-faded);">— A Concerned Traditionalist</p>
-        <p style="margin-top: 14px;"><strong>Editor's response:</strong> We appreciate the concern. However, our research indicates that being interested in more than one thing is, in fact, legal. Abhishek has been advised to continue.</p>
+        <div class="opinion-label">Archive</div>
+        <h3>Notes On Product, Building, And Learning In Public</h3>
+        <p>The rest of the writing lives off-homepage, where it can breathe a bit more: product thinking, technical notes, and the occasional opinionated aside.</p>
+        <a class="story-link" href="https://absieee.github.io/til/" target="_blank" rel="noreferrer">Browse the archive →</a>
       </div>
     </div>
   </div>
