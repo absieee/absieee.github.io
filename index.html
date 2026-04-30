@@ -849,7 +849,7 @@
   <hr class="section-rule">
   <div class="section-label fade-section">From The Blog</div>
 
-  <div class="two-col fade-section">
+  <div class="two-col fade-section" id="blog-posts-section">
     <div class="col">
       <div class="editorial-box">
         <div class="opinion-label">In Progress</div>
@@ -1086,6 +1086,61 @@
   }
 
   renderPuzzle();
+
+  // ── Blog posts ──
+  async function loadBlogPosts() {
+    try {
+      const res = await fetch('https://absieee.github.io/blog/feed.xml');
+      if (!res.ok) return;
+      const xml = new DOMParser().parseFromString(await res.text(), 'application/xml');
+      const entries = Array.from(xml.querySelectorAll('entry')).slice(0, 2);
+      if (!entries.length) return;
+
+      const section = document.getElementById('blog-posts-section');
+      section.innerHTML = '';
+
+      entries.forEach((entry, i) => {
+        const title = entry.querySelector('title')?.textContent || '';
+        const link = entry.querySelector('link[rel="alternate"]')?.getAttribute('href')
+                  || entry.querySelector('link')?.getAttribute('href') || 'https://absieee.github.io/blog/';
+        const published = entry.querySelector('published')?.textContent || '';
+        const summary = entry.querySelector('summary')?.textContent || '';
+        const date = published
+          ? new Date(published).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
+          : 'Latest';
+
+        const col = document.createElement('div');
+        col.className = 'col';
+        if (i === entries.length - 1) col.style.borderRight = 'none';
+        col.innerHTML = `
+          <div class="editorial-box">
+            <div class="opinion-label">${date}</div>
+            <h3>${title}</h3>
+            ${summary ? `<p>${summary}</p>` : ''}
+            <a class="story-link" href="${link}" target="_blank" rel="noreferrer">Read more →</a>
+          </div>`;
+        section.appendChild(col);
+      });
+
+      if (entries.length === 1) {
+        const col = document.createElement('div');
+        col.className = 'col';
+        col.style.borderRight = 'none';
+        col.innerHTML = `
+          <div class="editorial-box">
+            <div class="opinion-label">More to come</div>
+            <h3>Short Notes, Useful Ideas, No Filler</h3>
+            <p>New posts appear here as they're published.</p>
+            <a class="story-link" href="https://absieee.github.io/blog/" target="_blank" rel="noreferrer">Visit the blog →</a>
+          </div>`;
+        section.appendChild(col);
+      }
+    } catch (_) {
+      // Keep static fallback content on network error
+    }
+  }
+
+  loadBlogPosts();
 </script>
 
 </body>
