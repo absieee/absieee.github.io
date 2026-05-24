@@ -279,10 +279,66 @@ function cmdClear() {
   return null;
 }
 
-function cmdAbout()     { return '<span class="err">about: coming soon</span>'; }
+function cmdAbout() {
+  return `
+    Hi — I'm Abhishek. Product Manager who likes being close to the work:<br>
+    strategy, systems thinking, execution, and the occasional prototype<br>
+    when words are no longer enough.<br><br>
+    I sit comfortably between product and engineering — usually where<br>
+    the useful conversations happen. I write clearly, think commercially,<br>
+    and enjoy turning fuzzy ideas into something shippable.<br><br>
+    <span style="color:var(--dimmed)">→ </span><a onclick="runCommand('work'); return false;" href="#" style="color:var(--accent)">work</a>
+    <span style="color:var(--dimmed)"> for what I do day-to-day &nbsp;·&nbsp; </span>
+    <a onclick="runCommand('blog'); return false;" href="#" style="color:var(--accent)">blog</a>
+    <span style="color:var(--dimmed)"> for what I'm writing</span>`;
+}
+
 function cmdBlog()      { return '<span class="err">blog: coming soon</span>'; }
-function cmdWork()      { return '<span class="err">work: coming soon</span>'; }
-function cmdInterests() { return '<span class="err">interests: coming soon</span>'; }
+
+function cmdWork() {
+  return `
+    <div style="margin-bottom:10px;">
+      <span style="color:var(--strong)">Product Strategy & Execution</span><br>
+      Roadmaps rooted in user problems, clear trade-offs, practical delivery.<br>
+      Strong on discovery, prioritisation, and turning intent into shipped work.
+    </div>
+    <div style="margin-bottom:10px;">
+      <span style="color:var(--strong)">Technical Depth</span><br>
+      Comfortable in architecture, API, and data conversations. Technical enough<br>
+      to ask sharper questions and spot risk early. Can prototype directly.
+    </div>
+    <div style="margin-bottom:10px;">
+      <span style="color:var(--strong)">Entrepreneurial Bias</span><br>
+      Thinks with a founder's lens: speed, clarity, commercial reality.<br>
+      Interested in PMF, pricing, and useful MFPs.
+    </div>
+    <div>
+      <span style="color:var(--strong)">Communication</span><br>
+      Clear writing, tidy meetings, follow-through. Status updates that don't<br>
+      ruin anyone's morning.
+    </div>`;
+}
+
+function cmdInterests() {
+  return `
+    <div style="margin-bottom:10px;">
+      <span style="color:var(--strong)">Tennis</span><br>
+      Plays with the same energy as product work: strategic intent, occasional<br>
+      flashes of brilliance, regular post-match analysis. Forehand: useful.<br>
+      Backhand: improving. Serve: a live experiment. Rackets broken: 2.5.
+    </div>
+    <div style="margin-bottom:10px;">
+      <span style="color:var(--strong)">Building things</span><br>
+      Side projects, prototypes, and the occasional website built out of<br>
+      stubbornness. This one included.
+    </div>
+    <div>
+      <span style="color:var(--strong)">Reading</span><br>
+      Product, systems, strategy. Anything that helps make better decisions<br>
+      or tells a good story about how things actually work.
+    </div>`;
+}
+
 function cmdSocials()   { return '<span class="err">socials: coming soon</span>'; }
 function cmdEmail()     { return '<span class="err">email: coming soon</span>'; }
 
