@@ -293,7 +293,39 @@ function cmdAbout() {
     <span style="color:var(--dimmed)"> for what I'm writing</span>`;
 }
 
-function cmdBlog()      { return '<span class="err">blog: coming soon</span>'; }
+async function cmdBlog() {
+  try {
+    const res = await fetch('https://absieee.github.io/blog/feed.xml');
+    if (!res.ok) throw new Error('bad response');
+    const xml = new DOMParser().parseFromString(await res.text(), 'application/xml');
+    const entries = Array.from(xml.querySelectorAll('entry')).slice(0, 3);
+    if (!entries.length) throw new Error('no entries');
+
+    const rows = entries.map((entry, i) => {
+      const title = entry.querySelector('title')?.textContent || 'Untitled';
+      const link = entry.querySelector('link[rel="alternate"]')?.getAttribute('href')
+                || entry.querySelector('link')?.getAttribute('href')
+                || 'https://absieee.github.io/blog/';
+      const published = entry.querySelector('published')?.textContent || '';
+      const date = published
+        ? new Date(published).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+        : '';
+      return `
+        <div class="blog-row">
+          <span class="blog-num">[${i + 1}]</span>
+          <a href="${link}" target="_blank" rel="noreferrer">${escapeHtml(title)}</a>
+          ${date ? `<span class="blog-date">· ${date}</span>` : ''}
+        </div>`;
+    }).join('');
+
+    return `${rows}
+      <div class="blog-footer">
+        <a href="https://absieee.github.io/blog/" target="_blank" rel="noreferrer">→ absieee.github.io/blog</a>
+      </div>`;
+  } catch {
+    return `couldn't fetch feed — <a href="https://absieee.github.io/blog/" target="_blank" rel="noreferrer">visit absieee.github.io/blog directly</a>`;
+  }
+}
 
 function cmdWork() {
   return `
@@ -384,7 +416,16 @@ function runCommand(cmd) {
   }
 
   const result = fn();
-  if (result !== null) {
+  if (result && typeof result.then === 'function') {
+    appendEntry(trimmed, '<span style="color:var(--dimmed)">fetching…</span>');
+    result.then(html => {
+      if (html !== null) {
+        const entries = output.querySelectorAll('.entry');
+        const last = entries[entries.length - 1];
+        if (last) last.querySelector('.entry-response').innerHTML = html;
+      }
+    });
+  } else if (result !== null) {
     appendEntry(trimmed, result);
   }
 }
