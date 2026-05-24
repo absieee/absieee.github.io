@@ -343,10 +343,11 @@ async function cmdBlog() {
       const date = published
         ? new Date(published).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
         : '';
+      const latest = i === 0 ? `<span style="color:var(--accent);font-size:11px;margin-left:6px">latest</span>` : '';
       return `
         <div class="blog-row">
           <span class="blog-num">[${i + 1}]</span>
-          <a href="${link}" target="_blank" rel="noreferrer">${escapeHtml(title)}</a>
+          <a href="${link}" target="_blank" rel="noreferrer">${escapeHtml(title)}</a>${latest}
           ${date ? `<span class="blog-date">· ${date}</span>` : ''}
         </div>`;
     }).join('');
