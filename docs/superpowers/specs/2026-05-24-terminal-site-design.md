@@ -58,7 +58,7 @@ ABHI  (block ASCII, orange)     absieee
                                  absieee@github.io
                                  ──────────────────────
                                  role     : Product Manager
-                                 based    : London, UK
+                                 based    : Swindon, UK
                                  building : absieee.github.io/blog
                                  contact  : abs_sh@hotmail.co.uk
                                  ──────────────────────

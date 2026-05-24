@@ -1,0 +1,93 @@
+<h2>2025–2026 CLI aesthetics</h2>
+<p class="subtitle">Inspired by Warp, Ghostty, Bun, Vercel CLI, Charm, and the terminals people actually use now.</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="warp" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#1c1c1e; padding:16px; font-family:'SF Mono','Fira Code','Courier New',monospace; font-size:12px; line-height:1.8; min-height:160px; border-radius:4px;">
+      <div style="color:#636366; font-size:11px; margin-bottom:8px; letter-spacing:0.5px;">PERSONAL SITE · absieee.github.io</div>
+      <div><span style="color:#636366;">›</span> <span style="color:#ffffff; font-weight:500;">whoami</span></div>
+      <div style="color:#ebebf5; margin-left:14px; margin-bottom:6px;">Abhishek Sharma — PM, builder, tennis menace.</div>
+      <div><span style="color:#636366;">›</span> <span style="color:#ffffff; font-weight:500;">blog</span></div>
+      <div style="color:#7c7cff; margin-left:14px;">↳ 3 posts  <span style="color:#636366;">· fetching from feed…</span></div>
+    </div>
+    <div class="card-body">
+      <h3>Warp-style</h3>
+      <p>Charcoal black, cool white text, electric indigo accents. What Warp terminal looks like — clean and premium without being flashy.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="tokyo" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#1a1b2e; padding:16px; font-family:'SF Mono','Fira Code','Courier New',monospace; font-size:12px; line-height:1.8; min-height:160px; border-radius:4px;">
+      <div style="color:#565f89; font-size:11px; margin-bottom:8px;">~/abhishek  <span style="color:#7aa2f7;">main</span> <span style="color:#9ece6a;">✓</span></div>
+      <div><span style="color:#7aa2f7;">❯</span> <span style="color:#bb9af7;">whoami</span></div>
+      <div style="color:#cfc9c2; margin-left:14px; margin-bottom:6px;">Abhishek Sharma — PM, builder, tennis menace.</div>
+      <div><span style="color:#7aa2f7;">❯</span> <span style="color:#bb9af7;">blog</span></div>
+      <div style="color:#9ece6a; margin-left:14px;">↳ latest: <span style="color:#e0af68;">"On shipping before you're ready"</span></div>
+    </div>
+    <div class="card-body">
+      <h3>Tokyo Night</h3>
+      <p>Deep midnight blue, lavender commands, gold strings. Recognisable to anyone with taste in editor themes. Warm and distinctive.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="bun" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#0a0a0a; padding:16px; font-family:'SF Mono','Fira Code','Courier New',monospace; font-size:12px; line-height:1.8; min-height:160px; border-radius:4px;">
+      <div style="margin-bottom:10px;">
+        <span style="background:linear-gradient(90deg,#fb923c,#f43f5e,#a855f7); -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-weight:700; font-size:16px; letter-spacing:-0.5px;">absieee</span>
+        <span style="color:#404040; font-size:11px; margin-left:8px;">personal terminal</span>
+      </div>
+      <div><span style="color:#525252;">$</span> <span style="color:#f5f5f5; font-weight:500;">whoami</span></div>
+      <div style="color:#a3a3a3; margin-left:14px; margin-bottom:6px;">Abhishek Sharma — PM, builder, tennis menace.</div>
+      <div><span style="color:#525252;">$</span> <span style="color:#f5f5f5; font-weight:500;">blog</span></div>
+      <div style="color:#fb923c; margin-left:14px;">3 posts  <span style="color:#525252;">· last updated 2 days ago</span></div>
+    </div>
+    <div class="card-body">
+      <h3>Bun-style</h3>
+      <p>Pure black, neutral grey text, gradient name in orange→pink→purple. Inspired by how Bun renders its own CLI output. Loud logo, quiet everything else.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="charm" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#1d1f21; padding:16px; font-family:'SF Mono','Fira Code','Courier New',monospace; font-size:12px; line-height:1.8; min-height:160px; border-radius:4px;">
+      <div style="border:1px solid #373b41; border-radius:4px; padding:8px 12px; margin-bottom:10px; color:#cc6666; font-size:11px; letter-spacing:1px;">ABHISHEK.SH — PERSONAL TERMINAL</div>
+      <div><span style="color:#8abeb7;">▸</span> <span style="color:#81a2be; font-weight:600;">whoami</span></div>
+      <div style="color:#c5c8c6; margin-left:14px; margin-bottom:6px;">Abhishek Sharma — PM, builder, tennis menace.</div>
+      <div><span style="color:#8abeb7;">▸</span> <span style="color:#81a2be; font-weight:600;">blog</span></div>
+      <div style="color:#b5bd68; margin-left:14px;">  On shipping before you're ready</div>
+    </div>
+    <div class="card-body">
+      <h3>Charm / Base16</h3>
+      <p>The aesthetic behind Glow, Soft Serve, and Bubbletea. Teal prompts, blue commands, green output. Structured, readable, beautifully boring in the best way.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="vercel" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#fafafa; padding:16px; font-family:'SF Mono','Fira Code','Courier New',monospace; font-size:12px; line-height:1.8; min-height:160px; border-radius:4px; border:1px solid #e5e5e5;">
+      <div style="color:#a3a3a3; font-size:11px; margin-bottom:8px;">absieee.github.io</div>
+      <div><span style="color:#737373;">$</span> <span style="color:#171717; font-weight:600;">whoami</span></div>
+      <div style="color:#404040; margin-left:14px; margin-bottom:6px;">Abhishek Sharma — PM, builder, tennis menace.</div>
+      <div><span style="color:#737373;">$</span> <span style="color:#171717; font-weight:600;">blog</span></div>
+      <div style="color:#0070f3; margin-left:14px;">↳ On shipping before you're ready  →</div>
+    </div>
+    <div class="card-body">
+      <h3>Vercel / Light CLI</h3>
+      <p>White background, near-black text, electric Vercel blue for links. Nobody does this for a personal terminal site. That's exactly why it would stand out.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="rosepine" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#191724; padding:16px; font-family:'SF Mono','Fira Code','Courier New',monospace; font-size:12px; line-height:1.8; min-height:160px; border-radius:4px;">
+      <div style="color:#555169; font-size:11px; margin-bottom:8px;">absieee  ~  main</div>
+      <div><span style="color:#c4a7e7;">❯</span> <span style="color:#ebbcba; font-weight:500;">whoami</span></div>
+      <div style="color:#e0def4; margin-left:14px; margin-bottom:6px;">Abhishek Sharma — PM, builder, tennis menace.</div>
+      <div><span style="color:#c4a7e7;">❯</span> <span style="color:#ebbcba; font-weight:500;">blog</span></div>
+      <div style="color:#9ccfd8; margin-left:14px;">↳ <span style="color:#f6c177;">"On shipping before you're ready"</span></div>
+    </div>
+    <div class="card-body">
+      <h3>Rosé Pine</h3>
+      <p>Warm dark purple, rose commands, foam teal for links, gold for strings. The theme that's replaced Dracula for taste-havers. Deeply calming and elegant.</p>
+    </div>
+  </div>
+
+</div>
