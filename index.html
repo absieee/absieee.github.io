@@ -27,6 +27,7 @@
 
     html, body {
       height: 100%;
+      overflow: hidden;
       background: var(--bg);
       color: var(--text);
       font-family: var(--font);
@@ -464,8 +465,7 @@ input.addEventListener('keydown', e => {
     e.preventDefault();
     const val = input.value.trim().toLowerCase();
     if (!val) return;
-    const COMMANDS = ['help','about','blog','work','interests','socials','email','clear'];
-    const matches = COMMANDS.filter(c => c.startsWith(val));
+    const matches = Object.keys(COMMANDS).filter(c => c.startsWith(val));
     if (matches.length === 1) input.value = matches[0];
   }
 
