@@ -430,12 +430,13 @@ const COMMANDS = {
 function runCommand(cmd) {
   const trimmed = cmd.trim().toLowerCase();
   if (!trimmed) return;
+  if (trimmed.length > 40) return;
   history.unshift(trimmed);
   historyIndex = -1;
 
   const fn = COMMANDS[trimmed];
   if (!fn) {
-    appendEntry(trimmed, `<span class="err">command not found: ${escapeHtml(trimmed)} — type 'help' for available commands</span>`);
+    appendEntry(trimmed, `<span class="err">command not found — type 'help' for available commands</span>`);
     return;
   }
 
