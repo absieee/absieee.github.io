@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>absieee</title>
+  <title>Abhishek Sharma</title>
   <meta name="description" content="Abhishek Sharma — Product Manager, builder, tennis menace.">
   <meta property="og:title" content="absieee">
   <meta property="og:description" content="Abhishek Sharma — Product Manager, builder, tennis menace.">
@@ -312,6 +312,7 @@ function cmdHelp() {
       <div class="help-row"><span class="help-cmd">email</span><span class="help-desc">get in touch</span></div>
       <div class="help-row"><span class="help-cmd">clear</span><span class="help-desc">clear the terminal</span></div>
       <div class="help-row"><span class="help-cmd">tennis</span><span class="help-desc">fancy a match?</span></div>
+      <div class="help-row"><span class="help-cmd">data</span><span class="help-desc">the battle card</span></div>
       <div class="help-row"><span class="help-cmd">exit</span><span class="help-desc">close the tab</span></div>
     </div>
     <div style="color:var(--dimmed); margin-top:8px; font-size:12px;">[tab] autocomplete &nbsp;·&nbsp; [↑↓] history &nbsp;·&nbsp; [ctrl+l] clear</div>`;
@@ -622,6 +623,45 @@ async function playTennis(containerId) {
   input.focus();
 }
 
+function cmdData() {
+  const art = `         |
+    _____|_____
+  .'     |     '.
+ /       |       \\
+o        |        o
+ \\       |       /
+  '.___  |  ___.'
+        \\|/
+         |
+       __|__
+      /_____\\`;
+
+  return `
+    <div style="font-family:var(--font);font-size:11px;line-height:1.5;width:300px;border:1px solid var(--accent);border-radius:3px;overflow:hidden;display:inline-block">
+      <div style="padding:6px 10px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--accent);background:#0d0500">
+        <span style="color:var(--strong);font-weight:700;font-size:13px;letter-spacing:1px">ABHISHEK SHARMA</span>
+        <span style="color:var(--accent)">✦✦✦✦✦✦✦</span>
+      </div>
+      <div style="padding:3px 10px;background:#0a0300;border-bottom:1px solid var(--sep);text-align:center;color:var(--accent);font-size:10px;letter-spacing:2px">LIBRA ♎ &nbsp;·&nbsp; PRODUCT MANAGER</div>
+      <div style="padding:10px;background:#080400;border-bottom:1px solid var(--accent);text-align:center">
+        <pre style="color:var(--accent);font-size:9px;line-height:1.4;margin:0;display:inline-block;text-align:left">${art}</pre>
+      </div>
+      <div style="padding:4px 10px;border-bottom:1px solid var(--sep);color:var(--dimmed);font-size:10px">[ Product Manager / Builder / Effect ]</div>
+      <div style="padding:8px 10px;border-bottom:1px solid var(--accent);font-size:10px;line-height:1.7">
+        <div>Cut QA overhead by <span style="color:var(--accent)">£1.5M/month</span> — shipped a quality gate nobody asked for.</div>
+        <div>Scaled LLM code generation to <span style="color:var(--accent)">350+ live projects</span>.</div>
+        <div>Rebuilt Watson chatbot in <span style="color:var(--accent)">3 hours</span> with zero approval — earned promotion.</div>
+        <div>Cost-per-project cut by <span style="color:var(--accent)">47%</span> by changing the north star metric.</div>
+        <div>Agent Assure: zero to <span style="color:var(--accent)">Lloyds Banking Group POC in 30 days</span>.</div>
+        <div>Zero downstream services broken across full .NET migration.</div>
+      </div>
+      <div style="padding:6px 10px;display:flex;justify-content:space-between;color:var(--strong);font-size:11px;font-weight:700">
+        <span>ATK / <span style="color:var(--accent)">9001</span></span>
+        <span>DEF / <span style="color:var(--accent)">∞</span></span>
+      </div>
+    </div>`;
+}
+
 const COMMANDS = {
   help:      cmdHelp,
   about:     cmdAbout,
@@ -632,6 +672,7 @@ const COMMANDS = {
   email:     cmdEmail,
   clear:     cmdClear,
   tennis:    cmdTennis,
+  data:      cmdData,
   exit:      () => { window.close(); return null; },
 };
 
