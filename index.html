@@ -456,10 +456,11 @@ async function playTennis(containerId) {
     document.addEventListener('keydown', h);
   });
 
-  const SHOTS = {
+  // Your shots when serving
+  const YOUR_SERVE_SHOTS = {
     s: { name: 'serve',
          win:  ['ACE — clean, unreturnable 🎾', 'serve winner down the T 🎾'],
-         lose: ['double fault 😬', 'serve slapped back for a clean winner'] },
+         lose: ['double fault 😬', 'serve slapped back for a winner'] },
     f: { name: 'forehand',
          win:  ['forehand WINNER down the line 🎾', 'forehand cross-court — too good 🎾'],
          lose: ['forehand out — clipped the baseline tape', 'forehand dragged wide under pressure'] },
@@ -470,11 +471,40 @@ async function playTennis(containerId) {
          win:  ['slice drifts just out of reach 🎾', 'sliced cross-court, terminal nets the reply'],
          lose: ['slice sits up — put away easily', 'slice too short — smashed for a winner'] },
     d: { name: 'drop shot',
-         win:  ['drop shot — barely clears, lands and dies 🎾', 'drop shot winner — terminal was miles behind the baseline'],
-         lose: ['drop shot telegraphed — terminal reads it perfectly', 'drop shot clips the net cord'] },
+         win:  ['drop shot — barely clears, lands and dies 🎾', 'drop shot winner — terminal was miles back'],
+         lose: ['drop shot telegraphed — terminal pounces', 'drop shot clips the net cord'] },
   };
+
+  // Your shots when returning terminal's serve
+  const YOUR_RETURN_SHOTS = {
+    f: { name: 'forehand return',
+         win:  ['return WINNER down the line 🎾', 'forehand return drilled cross-court — no chance 🎾'],
+         lose: ['return long — pace was too much', 'forehand return into the net'] },
+    b: { name: 'backhand return',
+         win:  ['backhand return WINNER 🎾', 'chipped backhand return — terminal wrong-footed 🎾'],
+         lose: ['backhand return wide — stretch too far', 'backhand return clipped the net'] },
+    l: { name: 'lob',
+         win:  ['lob over the charging terminal — lands in 🎾', 'perfect lob, terminal scrambles but it\'s past 🎾'],
+         lose: ['lob goes long', 'lob sat up — overhead smashed away'] },
+    d: { name: 'drop shot',
+         win:  ['drop shot off the return — terminal had no chance 🎾', 'cheeky drop shot return — complete surprise 🎾'],
+         lose: ['drop shot read early — terminal strolls up and puts it away', 'drop shot hits the tape'] },
+  };
+
+  // Terminal's serves (shown before your return)
+  const TERMINAL_SERVES = [
+    { text: 'kicker out wide — you\'re stretched', ace: false },
+    { text: 'flat serve down the T — it\'s in', ace: false },
+    { text: 'heavy topspin to the backhand', ace: false },
+    { text: 'wide to the forehand — you\'re on the run', ace: false },
+    { text: 'ACE — down the T, you never got near it', ace: true },
+    { text: 'double fault 😬 — point to you', ace: false, doubleFault: true },
+  ];
+
+  const pick = arr => arr[Math.floor(Math.random() * arr.length)];
   const PTS = ['0', '15', '30', '40'];
   let you = 0, them = 0;
+  let playerServing = true; // alternates each point
 
   ln('<span style="color:var(--accent)">┌──────────────────────────────┐</span>');
   ln('<span style="color:var(--accent)">│  🎾  TERMINAL TENNIS          │</span>');
@@ -484,28 +514,50 @@ async function playTennis(containerId) {
   await wait(500);
 
   while (you < 4 && them < 4) {
-    ln(`<span style="color:var(--dimmed)">score — you: <span style="color:var(--strong)">${PTS[you]}</span>  terminal: <span style="color:var(--strong)">${PTS[them]}</span></span>`);
+    const youMark  = playerServing  ? ' <span style="color:var(--accent)" title="serving">▶</span>' : '';
+    const themMark = !playerServing ? ' <span style="color:var(--accent)" title="serving">▶</span>' : '';
+    ln(`<span style="color:var(--dimmed)">score — you: <span style="color:var(--strong)">${PTS[you]}</span>${youMark}  terminal: <span style="color:var(--strong)">${PTS[them]}</span>${themMark}</span>`);
     await wait(150);
 
-    const promptLine = ln(`<span style="color:var(--prompt)">[s]erve &nbsp;[f]orehand &nbsp;[b]ackhand &nbsp;[c]slice &nbsp;[d]rop</span> <span style="color:var(--accent)">▶</span>`);
+    let youWin;
 
-    const key = await waitKey(['s', 'f', 'b', 'c', 'd']);
-    const shot = SHOTS[key];
-    promptLine.innerHTML = `<span style="color:var(--strong)">${shot.name}</span>`;
+    if (playerServing) {
+      const promptLine = ln(`<span style="color:var(--prompt)">[s]erve &nbsp;[f]orehand &nbsp;[b]ackhand &nbsp;[c]slice &nbsp;[d]rop</span> <span style="color:var(--accent)">▶</span>`);
+      const key = await waitKey(['s', 'f', 'b', 'c', 'd']);
+      const shot = YOUR_SERVE_SHOTS[key];
+      promptLine.innerHTML = `<span style="color:var(--strong)">${shot.name}</span>`;
+      await wait(260);
+      youWin = Math.random() < 0.5;
+      const desc = youWin ? pick(shot.win) : pick(shot.lose);
+      promptLine.innerHTML = `<span style="color:var(--strong)">${shot.name}</span> — <span style="color:var(--text)">${desc}</span>`;
 
-    await wait(260);
-    const youWin = Math.random() < 0.5;
-    const desc = youWin
-      ? shot.win[Math.floor(Math.random() * shot.win.length)]
-      : shot.lose[Math.floor(Math.random() * shot.lose.length)];
+    } else {
+      const serve = pick(TERMINAL_SERVES);
+      ln(`<span style="color:var(--dimmed)">terminal: </span><span style="color:var(--text)">${serve.text}</span>`);
+      await wait(550);
 
-    promptLine.innerHTML = `<span style="color:var(--strong)">${shot.name}</span> — <span style="color:var(--text)">${desc}</span>`;
+      if (serve.ace) {
+        youWin = false;
+      } else if (serve.doubleFault) {
+        youWin = true;
+      } else {
+        const promptLine = ln(`<span style="color:var(--prompt)">return: [f]orehand &nbsp;[b]ackhand &nbsp;[l]ob &nbsp;[d]rop</span> <span style="color:var(--accent)">▶</span>`);
+        const key = await waitKey(['f', 'b', 'l', 'd']);
+        const shot = YOUR_RETURN_SHOTS[key];
+        promptLine.innerHTML = `<span style="color:var(--strong)">${shot.name}</span>`;
+        await wait(260);
+        youWin = Math.random() < 0.5;
+        const desc = youWin ? pick(shot.win) : pick(shot.lose);
+        promptLine.innerHTML = `<span style="color:var(--strong)">${shot.name}</span> — <span style="color:var(--text)">${desc}</span>`;
+      }
+    }
+
     await wait(380);
-
     if (youWin) { you++;  ln('<span style="color:#22c55e">  ✓ your point</span>'); }
     else        { them++; ln('<span style="color:#ef4444">  ✗ terminal\'s point</span>'); }
     blank();
     await wait(680);
+    playerServing = !playerServing;
   }
 
   if (you >= 4) {
