@@ -234,6 +234,79 @@ function renderSumfetch() {
 
 const output = document.getElementById('output');
 output.innerHTML = renderSumfetch();
+
+const input = document.getElementById('input');
+const history = [];
+let historyIndex = -1;
+
+document.getElementById('terminal').addEventListener('click', () => input.focus());
+input.focus();
+
+function appendEntry(cmd, responseHtml) {
+  const entry = document.createElement('div');
+  entry.className = 'entry';
+  entry.innerHTML = `
+    <div class="entry-cmd">
+      <span class="prompt">$</span>
+      <span>${escapeHtml(cmd)}</span>
+    </div>
+    <div class="entry-response">${responseHtml}</div>`;
+  output.appendChild(entry);
+  output.scrollTop = output.scrollHeight;
+}
+
+function escapeHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function runCommand(cmd) {
+  const trimmed = cmd.trim().toLowerCase();
+  if (!trimmed) return;
+  history.unshift(trimmed);
+  historyIndex = -1;
+  appendEntry(trimmed, `<span class="err">command not found: ${escapeHtml(trimmed)} — type 'help' for available commands</span>`);
+}
+
+input.addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+    const val = input.value;
+    input.value = '';
+    runCommand(val);
+  }
+
+  if (e.key === 'ArrowUp') {
+    e.preventDefault();
+    if (historyIndex < history.length - 1) {
+      historyIndex++;
+      input.value = history[historyIndex];
+    }
+  }
+
+  if (e.key === 'ArrowDown') {
+    e.preventDefault();
+    if (historyIndex > 0) {
+      historyIndex--;
+      input.value = history[historyIndex];
+    } else {
+      historyIndex = -1;
+      input.value = '';
+    }
+  }
+
+  if (e.key === 'Tab') {
+    e.preventDefault();
+    const val = input.value.trim().toLowerCase();
+    if (!val) return;
+    const COMMANDS = ['help','about','blog','work','interests','socials','email','clear'];
+    const matches = COMMANDS.filter(c => c.startsWith(val));
+    if (matches.length === 1) input.value = matches[0];
+  }
+
+  if (e.key === 'l' && e.ctrlKey) {
+    e.preventDefault();
+    runCommand('clear');
+  }
+});
   </script>
 </body>
 </html>
