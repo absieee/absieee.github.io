@@ -219,14 +219,14 @@ function renderSumfetch() {
         <div class="sumfetch-host">absieee@github.io</div>
         <div class="sumfetch-sep">──────────────────────</div>
         <div class="sumfetch-row">
-          <span class="sumfetch-key">i am</span>
+          <span class="sumfetch-key">i am a</span>
           <span class="sumfetch-colon">:</span>
-          <span class="sumfetch-val">a Product Manager + Builder + Writer</span>
+          <span class="sumfetch-val">product manager + builder + writer</span>
         </div>
         <div class="sumfetch-row">
           <span class="sumfetch-key">based in</span>
           <span class="sumfetch-colon">:</span>
-          <span class="sumfetch-val">Swindon, UK</span>
+          <span class="sumfetch-val">swindon, u.k.</span>
         </div>
         <div class="sumfetch-row">
           <span class="sumfetch-key">my thoughts</span>
@@ -301,6 +301,7 @@ function cmdHelp() {
       <div class="help-row"><span class="help-cmd">socials</span><span class="help-desc">find me elsewhere</span></div>
       <div class="help-row"><span class="help-cmd">email</span><span class="help-desc">get in touch</span></div>
       <div class="help-row"><span class="help-cmd">clear</span><span class="help-desc">clear the terminal</span></div>
+      <div class="help-row"><span class="help-cmd">tennis</span><span class="help-desc">fancy a match?</span></div>
     </div>
     <div style="color:var(--dimmed); margin-top:8px; font-size:12px;">[tab] autocomplete &nbsp;·&nbsp; [↑↓] history &nbsp;·&nbsp; [ctrl+l] clear</div>`;
 }
@@ -423,6 +424,104 @@ function cmdEmail() {
   return `opening <a href="mailto:abs_sh@hotmail.co.uk">abs_sh@hotmail.co.uk</a>…`;
 }
 
+function cmdTennis() {
+  const id = 'tennis-' + Date.now();
+  setTimeout(() => playTennis(id), 100);
+  return `<div id="${id}" style="white-space:pre-wrap;line-height:1.6"></div>`;
+}
+
+async function playTennis(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  input.disabled = true;
+
+  const wait = ms => new Promise(r => setTimeout(r, ms));
+  const put = html => { el.innerHTML += html; output.scrollTop = output.scrollHeight; };
+
+  const WIN_SHOTS = [
+    'Serve — ACE 🎾  clean, unreturnable',
+    'Forehand — WINNER down the line 🎾',
+    'Backhand — cross-court WINNER 🎾',
+    'Return — passing shot WINNER 🎾',
+    'Volley — perfect touch at the net 🎾',
+    'Second serve — ACE 🎾  what a shot',
+  ];
+  const LOSE_SHOTS = [
+    'Forehand — out by a mile',
+    'Serve — double fault 😬',
+    'Backhand — clips the net',
+    'Lob — smashed away for a winner',
+    'Drop shot — too short, picked up easily',
+    'Running forehand — wide, too much pace',
+  ];
+  const PTS = ['0', '15', '30', '40'];
+
+  put(`<span style="color:var(--accent)">┌──────────────────────────────┐\n│  🎾  TERMINAL TENNIS          │\n│  you vs the machine           │\n└──────────────────────────────┘</span>\n`);
+  await wait(800);
+
+  let you = 0, them = 0;
+  while (you < 4 && them < 4) {
+    const youWin = Math.random() < 0.5;
+    const shot = youWin
+      ? WIN_SHOTS[Math.floor(Math.random() * WIN_SHOTS.length)]
+      : LOSE_SHOTS[Math.floor(Math.random() * LOSE_SHOTS.length)];
+
+    put(`\n<span style="color:var(--text)">${shot}</span>\n`);
+    await wait(480);
+
+    if (youWin) { you++; put(`<span style="color:#22c55e">  ✓ your point</span>\n`); }
+    else         { them++; put(`<span style="color:#ef4444">  ✗ terminal's point</span>\n`); }
+
+    await wait(260);
+    const ys = you  >= 4 ? 'Game' : PTS[you];
+    const ts = them >= 4 ? 'Game' : PTS[them];
+    put(`<span style="color:var(--dimmed)">  score → you: <span style="color:var(--strong)">${ys}</span>  terminal: <span style="color:var(--strong)">${ts}</span></span>\n`);
+    await wait(820);
+  }
+
+  put('\n');
+
+  if (you >= 4) {
+    await wait(300);
+    const trophy = [
+      'GAME, SET, MATCH — YOU WIN! 🏆',
+      '',
+      "   .-~~~~-.",
+      "  .'  () ()'.  ",
+      " /  () ♥  () \\",
+      "| ()  YOU  () |",
+      " \\  () ♥  () /",
+      "  '._______.'",
+    ].join('\n');
+    put(`<span style="color:var(--accent)">${trophy}</span>\n`);
+  } else {
+    await wait(400);
+    put(`<span style="color:#ef4444">game over. terminal wins.</span>\n`);
+    await wait(600);
+    put(`\n<span style="color:#ef4444">FATAL ERROR: tennis.js has stopped working\n  at Object.smash (terminal.js:42:7)\n  at processNextTick (node:internal/process/task_queues:95:5)</span>\n`);
+    await wait(350);
+    put(`<span style="color:#ef4444">▓▒░ CORE DUMP: 0xDEAD LOVE-ALL ░▒▓\n████████████████████████████████████████</span>\n`);
+    await wait(250);
+
+    const t = document.getElementById('terminal');
+    for (const x of [-7, 7, -5, 5, -3, 3, 0]) {
+      t.style.transform = `translateX(${x}px)`;
+      await wait(55);
+    }
+    t.style.transform = '';
+
+    await wait(700);
+    put(`<span style="color:var(--dimmed)">...</span>\n`);
+    await wait(1000);
+    put(`\n<span style="color:var(--accent)">boo, got you 😄</span>\n`);
+    await wait(150);
+    put(`<span style="color:var(--dimmed)">terminal is fine. you just can't play tennis.</span>\n`);
+  }
+
+  input.disabled = false;
+  input.focus();
+}
+
 const COMMANDS = {
   help:      cmdHelp,
   about:     cmdAbout,
@@ -432,6 +531,7 @@ const COMMANDS = {
   socials:   cmdSocials,
   email:     cmdEmail,
   clear:     cmdClear,
+  tennis:    cmdTennis,
 };
 
 function runCommand(cmd) {
