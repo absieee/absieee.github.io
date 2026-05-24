@@ -103,8 +103,7 @@ All links open in `_blank` with `rel="noreferrer"`. Orange (`#fb923c`) with a su
 |---|---|
 | GitHub | github.com/absieee |
 | LinkedIn | linkedin.com/in/abssh |
-| X | to be confirmed — left as placeholder `[x-handle]` |
-| Instagram | to be confirmed — left as placeholder `[ig-handle]` |
+| Instagram | instagram.com/theproductjesus |
 
 ## Blog RSS
 
