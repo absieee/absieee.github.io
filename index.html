@@ -424,6 +424,8 @@ function cmdEmail() {
   return `opening <a href="mailto:abs_sh@hotmail.co.uk">abs_sh@hotmail.co.uk</a>…`;
 }
 
+const tennisRecord = { wins: 0, losses: 0 };
+
 function cmdTennis() {
   const id = 'tennis-' + Date.now();
   setTimeout(() => playTennis(id), 100);
@@ -506,10 +508,14 @@ async function playTennis(containerId) {
   let you = 0, them = 0;
   let playerServing = true; // alternates each point
 
-  ln('<span style="color:var(--accent)">┌──────────────────────────────┐</span>');
-  ln('<span style="color:var(--accent)">│  🎾  TERMINAL TENNIS          │</span>');
-  ln('<span style="color:var(--accent)">│  you vs the machine           │</span>');
-  ln('<span style="color:var(--accent)">└──────────────────────────────┘</span>');
+  ln('<span style="color:var(--accent)">┌────────────────────────────┐</span>');
+  ln('<span style="color:var(--accent)">│   TERMINAL TENNIS          │</span>');
+  ln('<span style="color:var(--accent)">│   you vs the machine       │</span>');
+  ln('<span style="color:var(--accent)">└────────────────────────────┘</span>');
+  if (tennisRecord.wins + tennisRecord.losses > 0) {
+    blank();
+    ln(`<span style="color:var(--dimmed)">games — you: <span style="color:var(--strong)">${tennisRecord.wins}</span>  terminal: <span style="color:var(--strong)">${tennisRecord.losses}</span></span>`);
+  }
   blank();
   await wait(500);
 
@@ -561,6 +567,7 @@ async function playTennis(containerId) {
   }
 
   if (you >= 4) {
+    tennisRecord.wins++;
     await wait(300);
     ln('<span style="color:var(--accent)">GAME, SET, MATCH — YOU WIN! 🏆</span>');
     blank();
@@ -571,6 +578,7 @@ async function playTennis(containerId) {
     ln('<span style="color:var(--accent)"> \\  () ♥  () /</span>');
     ln("<span style=\"color:var(--accent)\">  '._______.'</span>");
   } else {
+    tennisRecord.losses++;
     await wait(400);
     ln('<span style="color:#ef4444">game over. terminal wins.</span>');
     await wait(600);
