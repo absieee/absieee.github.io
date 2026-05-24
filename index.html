@@ -339,8 +339,26 @@ function cmdInterests() {
     </div>`;
 }
 
-function cmdSocials()   { return '<span class="err">socials: coming soon</span>'; }
-function cmdEmail()     { return '<span class="err">email: coming soon</span>'; }
+function cmdSocials() {
+  return `
+    <div class="social-row">
+      <span class="social-platform">github</span>
+      <a href="https://github.com/absieee" target="_blank" rel="noreferrer">github.com/absieee</a>
+    </div>
+    <div class="social-row">
+      <span class="social-platform">linkedin</span>
+      <a href="https://www.linkedin.com/in/abssh/" target="_blank" rel="noreferrer">linkedin.com/in/abssh</a>
+    </div>
+    <div class="social-row">
+      <span class="social-platform">instagram</span>
+      <a href="https://www.instagram.com/theproductjesus/" target="_blank" rel="noreferrer">instagram.com/theproductjesus</a>
+    </div>`;
+}
+
+function cmdEmail() {
+  window.location.href = 'mailto:abs_sh@hotmail.co.uk';
+  return `opening <a href="mailto:abs_sh@hotmail.co.uk">abs_sh@hotmail.co.uk</a>…`;
+}
 
 const COMMANDS = {
   help:      cmdHelp,
