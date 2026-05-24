@@ -189,7 +189,51 @@
     </div>
   </div>
   <script>
-    // JS goes here in later tasks
+    const ABHI_ASCII =
+`█████╗ ██████╗ ██╗  ██╗██╗
+██╔══██╗██╔══██╗██║  ██║██║
+███████║██████╔╝███████║██║
+██╔══██║██╔══██╗██╔══██║██║
+██║  ██║██████╔╝██║  ██║██║
+╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝╚═╝`;
+
+function renderSumfetch() {
+  const asciiLines = ABHI_ASCII.split('\n').map(l => `<div>${l}</div>`).join('');
+  return `
+    <div class="sumfetch">
+      <pre class="sumfetch-ascii">${asciiLines}</pre>
+      <div class="sumfetch-info">
+        <div class="sumfetch-name">absieee</div>
+        <div class="sumfetch-host">absieee@github.io</div>
+        <div class="sumfetch-sep">──────────────────────</div>
+        <div class="sumfetch-row">
+          <span class="sumfetch-key">role</span>
+          <span class="sumfetch-colon">:</span>
+          <span class="sumfetch-val">Product Manager</span>
+        </div>
+        <div class="sumfetch-row">
+          <span class="sumfetch-key">based</span>
+          <span class="sumfetch-colon">:</span>
+          <span class="sumfetch-val">Swindon, UK</span>
+        </div>
+        <div class="sumfetch-row">
+          <span class="sumfetch-key">building</span>
+          <span class="sumfetch-colon">:</span>
+          <span class="sumfetch-val"><a href="https://absieee.github.io/blog/" target="_blank" rel="noreferrer">absieee.github.io/blog</a></span>
+        </div>
+        <div class="sumfetch-row">
+          <span class="sumfetch-key">contact</span>
+          <span class="sumfetch-colon">:</span>
+          <span class="sumfetch-val"><a href="mailto:abs_sh@hotmail.co.uk">abs_sh@hotmail.co.uk</a></span>
+        </div>
+        <div class="sumfetch-sep">──────────────────────</div>
+        <div class="sumfetch-hint">type <span>'help'</span> to see all commands</div>
+      </div>
+    </div>`;
+}
+
+const output = document.getElementById('output');
+output.innerHTML = renderSumfetch();
   </script>
 </body>
 </html>
