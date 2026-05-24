@@ -259,12 +259,60 @@ function escapeHtml(s) {
   return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 
+function cmdHelp() {
+  return `
+    <div class="help-grid">
+      <div class="help-row"><span class="help-cmd">help</span><span class="help-desc">list all commands</span></div>
+      <div class="help-row"><span class="help-cmd">about</span><span class="help-desc">who I am</span></div>
+      <div class="help-row"><span class="help-cmd">blog</span><span class="help-desc">latest posts</span></div>
+      <div class="help-row"><span class="help-cmd">work</span><span class="help-desc">what I do day-to-day</span></div>
+      <div class="help-row"><span class="help-cmd">interests</span><span class="help-desc">outside of work</span></div>
+      <div class="help-row"><span class="help-cmd">socials</span><span class="help-desc">find me elsewhere</span></div>
+      <div class="help-row"><span class="help-cmd">email</span><span class="help-desc">get in touch</span></div>
+      <div class="help-row"><span class="help-cmd">clear</span><span class="help-desc">clear the terminal</span></div>
+    </div>
+    <div style="color:var(--dimmed); margin-top:8px; font-size:12px;">[tab] autocomplete &nbsp;·&nbsp; [↑↓] history &nbsp;·&nbsp; [ctrl+l] clear</div>`;
+}
+
+function cmdClear() {
+  output.innerHTML = renderSumfetch();
+  return null;
+}
+
+function cmdAbout()     { return '<span class="err">about: coming soon</span>'; }
+function cmdBlog()      { return '<span class="err">blog: coming soon</span>'; }
+function cmdWork()      { return '<span class="err">work: coming soon</span>'; }
+function cmdInterests() { return '<span class="err">interests: coming soon</span>'; }
+function cmdSocials()   { return '<span class="err">socials: coming soon</span>'; }
+function cmdEmail()     { return '<span class="err">email: coming soon</span>'; }
+
+const COMMANDS = {
+  help:      cmdHelp,
+  about:     cmdAbout,
+  blog:      cmdBlog,
+  work:      cmdWork,
+  interests: cmdInterests,
+  socials:   cmdSocials,
+  email:     cmdEmail,
+  clear:     cmdClear,
+};
+
 function runCommand(cmd) {
   const trimmed = cmd.trim().toLowerCase();
   if (!trimmed) return;
   history.unshift(trimmed);
   historyIndex = -1;
-  appendEntry(trimmed, `<span class="err">command not found: ${escapeHtml(trimmed)} — type 'help' for available commands</span>`);
+
+  const fn = COMMANDS[trimmed];
+  if (!fn) {
+    appendEntry(trimmed, `<span class="err">command not found: ${escapeHtml(trimmed)} — type 'help' for available commands</span>`);
+    return;
+  }
+
+  const result = fn();
+  if (result !== null) {
+    appendEntry(trimmed, result);
+  }
 }
 
 input.addEventListener('keydown', e => {
