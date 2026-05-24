@@ -303,6 +303,7 @@ function cmdHelp() {
       <div class="help-row"><span class="help-cmd">email</span><span class="help-desc">get in touch</span></div>
       <div class="help-row"><span class="help-cmd">clear</span><span class="help-desc">clear the terminal</span></div>
       <div class="help-row"><span class="help-cmd">tennis</span><span class="help-desc">fancy a match?</span></div>
+      <div class="help-row"><span class="help-cmd">exit</span><span class="help-desc">close the tab</span></div>
     </div>
     <div style="color:var(--dimmed); margin-top:8px; font-size:12px;">[tab] autocomplete &nbsp;·&nbsp; [↑↓] history &nbsp;·&nbsp; [ctrl+l] clear</div>`;
 }
@@ -623,6 +624,7 @@ const COMMANDS = {
   email:     cmdEmail,
   clear:     cmdClear,
   tennis:    cmdTennis,
+  exit:      () => { window.close(); return null; },
 };
 
 function runCommand(cmd) {
