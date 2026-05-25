@@ -842,6 +842,8 @@ input.addEventListener('keydown', e => {
 });
 
     function initTestimonials() {
+      if (!Array.isArray(window.TESTIMONIALS) || TESTIMONIALS.length === 0) return;
+
       const quotes = [...TESTIMONIALS];
       for (let i = quotes.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -852,6 +854,7 @@ input.addEventListener('keydown', e => {
       const quoteEl = document.getElementById('t-quote');
       const authorEl = document.getElementById('t-author');
       const dotsEl = document.getElementById('t-dots');
+      if (!quoteEl || !authorEl || !dotsEl) return;
 
       quotes.forEach((_, i) => {
         const dot = document.createElement('div');
@@ -862,8 +865,9 @@ input.addEventListener('keydown', e => {
 
       function show(i) {
         current = i;
-        quoteEl.textContent = quotes[i].quote;
-        authorEl.textContent = '— ' + quotes[i].author + ', ' + quotes[i].role;
+        const t = quotes[i];
+        quoteEl.textContent = t.quote || '';
+        authorEl.textContent = t.author ? '— ' + t.author + (t.role ? ', ' + t.role : '') : '';
         dotsEl.querySelectorAll('.t-dot').forEach((d, j) => {
           d.classList.toggle('active', j === i);
         });
