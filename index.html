@@ -840,6 +840,40 @@ input.addEventListener('keydown', e => {
     runCommand('clear');
   }
 });
+
+    function initTestimonials() {
+      const quotes = [...TESTIMONIALS];
+      for (let i = quotes.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [quotes[i], quotes[j]] = [quotes[j], quotes[i]];
+      }
+
+      let current = 0;
+      const quoteEl = document.getElementById('t-quote');
+      const authorEl = document.getElementById('t-author');
+      const dotsEl = document.getElementById('t-dots');
+
+      quotes.forEach((_, i) => {
+        const dot = document.createElement('div');
+        dot.className = 't-dot' + (i === 0 ? ' active' : '');
+        dot.addEventListener('click', () => show(i));
+        dotsEl.appendChild(dot);
+      });
+
+      function show(i) {
+        current = i;
+        quoteEl.textContent = quotes[i].quote;
+        authorEl.textContent = '— ' + quotes[i].author + ', ' + quotes[i].role;
+        dotsEl.querySelectorAll('.t-dot').forEach((d, j) => {
+          d.classList.toggle('active', j === i);
+        });
+      }
+
+      show(0);
+      setInterval(() => show((current + 1) % quotes.length), 6000);
+    }
+
+    initTestimonials();
   </script>
 </body>
 </html>
