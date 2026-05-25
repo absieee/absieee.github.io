@@ -761,7 +761,7 @@ o        |        o
 }
 
 function cmdTestimonials() {
-  if (!Array.isArray(window.TESTIMONIALS) || TESTIMONIALS.length === 0) {
+  if (typeof TESTIMONIALS === 'undefined' || !Array.isArray(TESTIMONIALS) || TESTIMONIALS.length === 0) {
     return `<span style="color:var(--dimmed)">no testimonials loaded</span>`;
   }
   return TESTIMONIALS.map((t, i) => `
@@ -856,7 +856,7 @@ input.addEventListener('keydown', e => {
 });
 
     function initTestimonials() {
-      if (!Array.isArray(window.TESTIMONIALS) || TESTIMONIALS.length === 0) return;
+      if (typeof TESTIMONIALS === 'undefined' || !Array.isArray(TESTIMONIALS) || TESTIMONIALS.length === 0) return;
 
       const quotes = [...TESTIMONIALS];
       for (let i = quotes.length - 1; i > 0; i--) {
