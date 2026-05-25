@@ -303,17 +303,15 @@ function escapeHtml(s) {
 function cmdHelp() {
   return `
     <div class="help-grid">
-      <div class="help-row"><span class="help-cmd">help</span><span class="help-desc">list all commands</span></div>
       <div class="help-row"><span class="help-cmd">about</span><span class="help-desc">who I am</span></div>
-      <div class="help-row"><span class="help-cmd">blog</span><span class="help-desc">latest posts</span></div>
       <div class="help-row"><span class="help-cmd">work</span><span class="help-desc">what I do day-to-day</span></div>
+      <div class="help-row"><span class="help-cmd">blog</span><span class="help-desc">latest posts</span></div>
       <div class="help-row"><span class="help-cmd">life</span><span class="help-desc">outside of work</span></div>
-      <div class="help-row"><span class="help-cmd">socials</span><span class="help-desc">find me elsewhere</span></div>
-      <div class="help-row"><span class="help-cmd">email</span><span class="help-desc">get in touch</span></div>
-      <div class="help-row"><span class="help-cmd">clear</span><span class="help-desc">clear the terminal</span></div>
-      <div class="help-row"><span class="help-cmd">tennis</span><span class="help-desc">fancy a match?</span></div>
       <div class="help-row"><span class="help-cmd">data</span><span class="help-desc">the battle card</span></div>
-      <div class="help-row"><span class="help-cmd">exit</span><span class="help-desc">close the tab</span></div>
+      <div class="help-row"><span class="help-cmd">email</span><span class="help-desc">get in touch</span></div>
+      <div class="help-row"><span class="help-cmd">socials</span><span class="help-desc">find me elsewhere</span></div>
+      <div class="help-row"><span class="help-cmd">tennis</span><span class="help-desc">fancy a match?</span></div>
+      <div class="help-row"><span class="help-cmd">help</span><span class="help-desc">list all commands</span></div>
     </div>
     <div style="color:var(--dimmed); margin-top:8px; font-size:12px;">[tab] autocomplete &nbsp;·&nbsp; [↑↓] history &nbsp;·&nbsp; [ctrl+l] clear</div>`;
 }
@@ -677,6 +675,7 @@ const COMMANDS = {
   email:     cmdEmail,
   socials:   cmdSocials,
   tennis:    cmdTennis,
+  clear:     cmdClear,
   help:      cmdHelp,
   exit:      () => { window.close(); return null; },
 };
