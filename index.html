@@ -266,21 +266,34 @@
 
     .t-dots {
       display: flex;
-      gap: 5px;
+      gap: 2px;
       align-items: center;
-      margin-top: 6px;
+      margin-top: 8px;
     }
 
     .t-dot {
-      width: 4px;
-      height: 4px;
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
-      background: #222;
+      background: transparent;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s;
+    }
+
+    .t-dot::after {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--sep);
       transition: background 0.2s;
     }
 
-    .t-dot.active { background: var(--accent); }
+    .t-dot.active::after { background: var(--accent); }
+    .t-dot:hover::after { background: var(--dimmed); }
 
     /* ── Mobile ── */
     @media (max-width: 480px) {
