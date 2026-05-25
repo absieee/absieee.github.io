@@ -401,6 +401,7 @@ function cmdHelp() {
       <div class="help-row"><span class="help-cmd">blog</span><span class="help-desc">latest posts</span></div>
       <div class="help-row"><span class="help-cmd">life</span><span class="help-desc">outside of work</span></div>
       <div class="help-row"><span class="help-cmd">data</span><span class="help-desc">the battle card</span></div>
+      <div class="help-row"><span class="help-cmd">testimonials</span><span class="help-desc">what people say</span></div>
       <div class="help-row"><span class="help-cmd">email</span><span class="help-desc">get in touch</span></div>
       <div class="help-row"><span class="help-cmd">socials</span><span class="help-desc">find me elsewhere</span></div>
       <div class="help-row"><span class="help-cmd">tennis</span><span class="help-desc">fancy a match?</span></div>
@@ -759,18 +760,31 @@ o        |        o
     </div>`;
 }
 
+function cmdTestimonials() {
+  if (!Array.isArray(window.TESTIMONIALS) || TESTIMONIALS.length === 0) {
+    return `<span style="color:var(--dimmed)">no testimonials loaded</span>`;
+  }
+  return TESTIMONIALS.map((t, i) => `
+    <div style="margin-bottom:14px">
+      <div style="color:var(--accent);font-size:12px;margin-bottom:2px">[${i + 1}/${TESTIMONIALS.length}]</div>
+      <div style="color:var(--strong);font-style:italic">"${t.quote}"</div>
+      <div style="color:var(--dimmed);font-size:12px;margin-top:3px">— ${t.author}${t.role ? ', ' + t.role : ''}</div>
+    </div>`).join('');
+}
+
 const COMMANDS = {
-  about:     cmdAbout,
-  work:      cmdWork,
-  blog:      cmdBlog,
-  life:      cmdInterests,
-  data:      cmdData,
-  email:     cmdEmail,
-  socials:   cmdSocials,
-  tennis:    cmdTennis,
-  clear:     cmdClear,
-  help:      cmdHelp,
-  exit:      () => { window.close(); return null; },
+  about:        cmdAbout,
+  work:         cmdWork,
+  blog:         cmdBlog,
+  life:         cmdInterests,
+  data:         cmdData,
+  testimonials: cmdTestimonials,
+  email:        cmdEmail,
+  socials:      cmdSocials,
+  tennis:       cmdTennis,
+  clear:        cmdClear,
+  help:         cmdHelp,
+  exit:         () => { window.close(); return null; },
 };
 
 function runCommand(cmd) {
