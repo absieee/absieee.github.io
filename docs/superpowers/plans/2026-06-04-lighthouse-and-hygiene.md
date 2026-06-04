@@ -165,6 +165,47 @@ git commit -m "add Lighthouse CI quality gate on pushes to main"
 
 ---
 
+### Task 2a: Make the site pass its own gate (added after first LHCI run)
+
+**Discovery (2026-06-04 local LHCI run):** performance 0.63 — `images/photo.jpg` is 1.07 MB at 2117×3024 for a ≤400px-wide slot, giving LCP 8.9s on mobile emulation. Accessibility exactly 0.90 — `color-contrast` and `target-size` audits failing, flake risk at the ≥0.90 threshold. User approved: optimize the photo AND fix the a11y audits (no threshold loosening).
+
+**Files:**
+- Modify: `images/photo.jpg` (resize/recompress in place — keep filename so no markup changes)
+- Modify: `css/main.css` and/or `css/tokens.css` (minimal, targeted fixes for the exact failing audit nodes only)
+
+- [ ] **Step 1: Optimize the photo in place** (macOS `sips`, no new tools)
+
+```bash
+cd /Users/abs.sh/Desktop/CODE/personal/absieee.github.io
+cp images/photo.jpg /tmp/photo-original-backup.jpg
+sips --resampleWidth 1200 --setProperty format jpeg --setProperty formatOptions 80 images/photo.jpg --out images/photo.jpg
+ls -la images/photo.jpg
+```
+
+Expected: file well under 250 KB, still JPEG, width 1200.
+
+- [ ] **Step 2: Identify the exact failing a11y nodes**
+
+Run a single Lighthouse pass and read the audit details (LHCI leaves JSON in `.lighthouseci/`): extract `color-contrast` and `target-size` failing selectors. Fix ONLY those nodes: contrast via darkening/lightening the offending color tokens or adding a targeted rule; target-size by enlarging the interactive element's hit area (e.g. carousel dots padding). Do not redesign anything; keep visual changes imperceptible.
+
+- [ ] **Step 3: Re-run the full gate**
+
+```bash
+npx --yes @lhci/cli@0.14.x autorun
+```
+Expected: all four categories ≥ 0.9 (performance should jump well past 0.9 with the small image). If performance still fails, report the new audit breakdown and STOP. Then `rm -rf .lighthouseci`.
+
+- [ ] **Step 4: Commit (site fixes separate from CI config)**
+
+```bash
+git add images/photo.jpg css/
+git commit -m "optimize portrait photo, fix contrast and tap-target audits"
+git add lighthouserc.json .github/workflows/lighthouse.yml
+git commit -m "add Lighthouse CI quality gate on pushes to main"
+```
+
+---
+
 ### Task 3: Page table stakes (404, OG meta, robots, sitemap)
 
 **Files:**
