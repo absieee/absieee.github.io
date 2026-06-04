@@ -1,961 +1,784 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Abhishek Sharma</title>
-  <meta name="description" content="Abhishek Sharma — Product Manager, builder, tennis menace.">
-  <meta property="og:title" content="absieee">
-  <meta property="og:description" content="Abhishek Sharma — Product Manager, builder, tennis menace.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://absieee.github.io">
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <style>
-    /* ── Reset & base ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Abhishek Sharma — Product Manager</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="description" content="Abhishek Sharma — product manager, builder, writer. Commercial operator who still gets close to the work.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Schibsted+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<style>
+/* ===== Direction 4 — Combined best-of ===================== */
+body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text);
+  font-size: var(--step-0);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+h1, h2, h3, h4 { margin: 0; line-height: 1.08; letter-spacing: -0.02em; font-weight: 700; }
+p { margin: 0; }
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
+.serif { font-family: "Instrument Serif", var(--font-serif); font-weight: 400; }
+.mono { font-family: var(--font-mono); }
+.label { font-family: var(--font-mono); font-size: var(--step--1); color: var(--muted); letter-spacing: 0.02em; font-weight: 500; }
+.prompt::before { content: "$ "; color: var(--accent); font-family: var(--font-mono); font-weight: 600; }
+.caret {
+  display: inline-block;
+  width: .55em;
+  height: 1.05em;
+  background: var(--accent);
+  margin-left: .18em;
+  transform: translateY(.16em);
+  animation: blink 1.15s steps(1) infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .caret { animation: none; } }
 
-    :root {
-      --bg:       #0a0a0a;
-      --text:     #c8c8c8;
-      --strong:   #f5f5f5;
-      --prompt:   #6b6b6b;
-      --accent:   #fb923c;
-      --dimmed:   #555555;
-      --sep:      #2a2a2a;
-      --font:     'SF Mono', 'Fira Code', 'Cascadia Code', 'Courier New', monospace;
-    }
+/* ---- top bar ---- */
+header.bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: color-mix(in oklab, var(--bg) 82%, transparent);
+  backdrop-filter: blur(12px) saturate(1.3);
+  border-bottom: 1px solid var(--border);
+}
+.bar .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 1.02rem;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  color: var(--text);
+}
+.brand b { background: var(--accent); color: var(--on-accent); padding: 2px 7px; border-radius: 5px; }
+nav.top { display: flex; gap: 6px; align-items: center; }
+nav.top a {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  text-decoration: none;
+  color: var(--muted);
+  padding: 7px 11px;
+  border-radius: var(--r-sm);
+  font-weight: 500;
+}
+nav.top a:hover { color: var(--text); background: var(--surface); }
+.toggle {
+  display: inline-grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+  color: var(--text-2);
+  font-size: 15px;
+}
+.toggle:hover { border-color: var(--border-2); color: var(--accent); }
+@media (max-width: 740px) { nav.top a:not(.cta) { display: none; } }
 
-    [data-theme="light"] {
-      --bg:       #f8f6f1;
-      --text:     #2a2a2a;
-      --strong:   #0a0a0a;
-      --prompt:   #999999;
-      --accent:   #c45e00;
-      --dimmed:   #777777;
-      --sep:      #d0ccc5;
-    }
+/* ---- hero ---- */
+.hero { padding: clamp(48px, 8vw, 96px) 0 0; }
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: clamp(24px, 4vw, 48px);
+  align-items: start;
+}
+@media (max-width: 860px) { .hero-grid { grid-template-columns: 1fr; } }
+.term-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+.term-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-2);
+}
+.term-head .lights { display: flex; gap: 7px; }
+.term-head .lights i { width: 11px; height: 11px; border-radius: 50%; display: block; }
+.term-head .lights i:nth-child(1) { background: oklch(0.72 0.16 28); }
+.term-head .lights i:nth-child(2) { background: oklch(0.82 0.13 85); }
+.term-head .lights i:nth-child(3) { background: oklch(0.74 0.13 150); }
+.term-head .ttl { font-family: var(--font-mono); font-size: var(--step--1); color: var(--muted); margin-left: 6px; }
+.term-body { padding: clamp(22px, 3.5vw, 36px); }
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+.kicker .pill {
+  border: 1px solid var(--accent-line);
+  background: var(--accent-tint);
+  color: var(--accent);
+  padding: 3px 9px;
+  border-radius: 100px;
+}
+h1.headline { font-size: var(--step-3); font-weight: 800; letter-spacing: -0.03em; max-width: 20ch; }
+h1.headline em { font-style: normal; color: var(--accent); }
+.sub { color: var(--text-2); font-size: var(--step-1); max-width: 54ch; margin-top: 18px; line-height: 1.5; }
+.meta-list { margin-top: 26px; display: grid; gap: 10px; max-width: 520px; }
+.meta-row {
+  display: grid;
+  grid-template-columns: 118px 1fr;
+  gap: 12px;
+  align-items: baseline;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+}
+.meta-row .k { color: var(--accent); }
+.meta-row .v a { color: var(--text); text-decoration: underline; text-decoration-color: var(--border-2); text-underline-offset: 3px; }
+.meta-row .v a:hover { text-decoration-color: var(--accent); color: var(--accent); }
+.cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: var(--step--1);
+  padding: 12px 18px;
+  border-radius: var(--r-sm);
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+.btn.primary { background: var(--accent); color: var(--on-accent); }
+.btn.primary:hover { background: var(--accent-strong); }
+.btn.ghost { background: transparent; color: var(--text); border-color: var(--border-2); }
+.btn.ghost:hover { border-color: var(--accent); color: var(--accent); }
+.btn.pill-btn { border-radius: 100px; }
 
-    html, body {
-      height: 100%;
-      overflow: hidden;
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--font);
-      font-size: 16px;
-      line-height: 1.75;
-      -webkit-font-smoothing: antialiased;
-    }
+/* portrait placeholder */
+.portrait { border-radius: var(--r-xl); overflow: hidden; align-self: stretch; min-height: 380px; }
+.portrait .ph { width: 100%; height: 100%; }
+.ph {
+  outline: 1px dashed var(--border-2);
+  background: repeating-linear-gradient(
+    135deg,
+    transparent 0 11px,
+    color-mix(in oklab, var(--accent) 9%, transparent) 11px 12px
+  );
+  display: grid;
+  place-items: center;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--muted);
+  text-align: center;
+  padding: 18px;
+  border-radius: var(--r-sm);
+}
+@media (max-width: 860px) { .portrait { max-width: 300px; min-height: 320px; order: -1; } }
 
-    /* ── Terminal wrapper ── */
-    #terminal {
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 32px 28px 20px;
-    }
+/* ---- metrics strip ---- */
+.metrics-wrap {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin-top: clamp(40px, 6vw, 72px);
+}
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+.metric { padding: 24px 28px; border-left: 1px solid var(--border); }
+.metric:first-child { border-left: none; }
+.metric .big { font-size: var(--step-2); font-weight: 800; letter-spacing: -0.04em; color: var(--text); }
+.metric .big i { font-style: normal; color: var(--accent); }
+.metric .cap {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--muted);
+  margin-top: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+@media (max-width: 760px) {
+  .metrics { grid-template-columns: 1fr 1fr; }
+  .metric:nth-child(3) { border-left: none; }
+}
 
-    /* ── Output area ── */
-    #output {
-      flex: 1;
-      overflow-y: auto;
-      padding-bottom: 12px;
-    }
+/* ---- section frame ---- */
+section.blk { padding: clamp(54px, 8vw, 92px) 0; border-top: 1px solid var(--border); }
+.sec-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 38px; flex-wrap: wrap; }
+.sec-head h2 { font-size: var(--step-2); font-weight: 700; }
+.sec-no { font-family: var(--font-mono); font-size: var(--step--1); color: var(--accent); font-weight: 600; }
+.sec-note { font-family: var(--font-mono); font-size: var(--step--1); color: var(--faint); margin-left: auto; }
 
-    #output::-webkit-scrollbar { width: 4px; }
-    #output::-webkit-scrollbar-track { background: transparent; }
-    #output::-webkit-scrollbar-thumb { background: var(--sep); border-radius: 2px; }
+/* ---- about ---- */
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 4vw, 52px); }
+.about-text { display: grid; gap: 18px; max-width: 560px; }
+.about-text p { color: var(--text-2); font-size: var(--step-1); line-height: 1.6; }
+.about-text p strong { color: var(--text); font-weight: 600; }
+.caps {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  align-self: start;
+}
+.cap-cell { background: var(--bg); padding: 20px 18px; }
+.cap-cell .h { font-weight: 700; font-size: var(--step-0); display: flex; align-items: center; gap: 8px; }
+.cap-cell .h::before { content: ""; width: 7px; height: 7px; background: var(--accent); border-radius: 2px; }
+.cap-cell p { font-size: var(--step--1); color: var(--text-2); margin-top: 7px; line-height: 1.5; }
+@media (max-width: 760px) { .about-grid { grid-template-columns: 1fr; } }
 
-    /* ── Entry blocks (command + response) ── */
-    .entry { margin-bottom: 16px; }
+/* ---- work ---- */
+.work-list { display: grid; gap: 16px; }
+.case {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 22px;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 24px 26px;
+  box-shadow: var(--shadow-sm);
+  transition: transform .18s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.case:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--accent-line); }
+.case .idx { font-family: var(--font-mono); font-size: var(--step--1); color: var(--accent); font-weight: 600; align-self: start; padding-top: 5px; }
+.case h3 { font-size: var(--step-1); font-weight: 700; letter-spacing: -0.02em; }
+.case .desc { color: var(--text-2); margin-top: 7px; font-size: var(--step-0); line-height: 1.5; max-width: 60ch; }
+.case .chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 14px; }
+.case .chip {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  padding: 3px 9px;
+  border-radius: 100px;
+  background: var(--bg);
+}
+.case .arrow {
+  font-family: var(--font-mono);
+  color: var(--faint);
+  font-size: 1.2rem;
+  align-self: center;
+  transition: transform .2s ease, color .2s ease;
+}
+.case:hover .arrow { transform: translateX(4px); color: var(--accent); }
+@media (max-width: 640px) {
+  .case { grid-template-columns: auto 1fr; }
+  .case .arrow { display: none; }
+}
 
-    .entry-cmd {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--strong);
-      font-weight: 500;
-      margin-bottom: 4px;
-    }
+/* ---- testimonials ---- */
+.pull { max-width: 900px; margin: 0 auto; text-align: center; }
+.pull blockquote {
+  font-family: "Instrument Serif", var(--font-serif);
+  font-weight: 400;
+  font-size: var(--step-3);
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  margin: 0;
+}
+.pull blockquote .it { font-style: italic; color: var(--accent); }
+.pull .by { margin-top: 30px; font-family: var(--font-mono); font-size: var(--step--1); color: var(--muted); }
+.pull .by b { color: var(--text-2); font-weight: 500; }
+.quotes-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-top: 42px;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.quote-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 28px;
+  box-shadow: var(--shadow-sm);
+}
+.quote-card blockquote {
+  font-family: "Instrument Serif", var(--font-serif);
+  font-weight: 400;
+  font-size: var(--step-1);
+  line-height: 1.4;
+  color: var(--text);
+  margin: 0;
+}
+.quote-card blockquote .it { font-style: italic; color: var(--accent); }
+.quote-card .by { margin-top: 18px; font-family: var(--font-mono); font-size: var(--step--1); color: var(--muted); }
+.quote-card .by b { color: var(--text-2); font-weight: 500; }
+@media (max-width: 720px) { .quotes-row { grid-template-columns: 1fr; } }
 
-    .entry-cmd .prompt { color: var(--prompt); }
+/* ---- testimonials carousel ---- */
+.quotes-carousel {
+  position: relative;
+  max-width: 900px;
+  margin: 32px auto 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+.carousel-track-wrap {
+  width: 100%;
+  overflow: hidden;
+}
+.carousel-track {
+  display: flex;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.carousel-track .quote-card {
+  flex: 0 0 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--accent);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  transition: background 0.15s;
+}
+.carousel-btn:hover { background: var(--border); }
+.carousel-prev { left: -52px; }
+.carousel-next { right: -52px; }
+.carousel-dots {
+  display: flex;
+  gap: 7px;
+}
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.2s;
+}
+.carousel-dot.active { background: var(--accent); }
+@media (max-width: 820px) {
+  .carousel-prev { left: 0; }
+  .carousel-next { right: 0; }
+  .carousel-track-wrap { padding: 0 44px; }
+}
 
-    .entry-response {
-      padding-left: 20px;
-      color: var(--text);
-    }
+/* ---- experience timeline ---- */
+.tl { display: grid; gap: 0; max-width: 820px; }
+.tl-item { display: grid; grid-template-columns: 170px 1fr; gap: 28px; padding: 24px 0; border-top: 1px solid var(--border); }
+.tl-item:first-child { border-top: none; }
+.tl-when { font-family: var(--font-mono); font-size: var(--step--1); color: var(--muted); padding-top: 3px; }
+.tl-role { font-size: var(--step-1); font-weight: 700; letter-spacing: -0.01em; }
+.tl-co { color: var(--accent); font-weight: 600; }
+.tl-desc { color: var(--text-2); margin-top: 7px; line-height: 1.55; font-size: var(--step-0); max-width: 58ch; }
+@media (max-width: 600px) { .tl-item { grid-template-columns: 1fr; gap: 6px; } }
 
-    /* ── Input line ── */
-    #input-line {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding-top: 8px;
-      border-top: 1px solid var(--sep);
-      flex-shrink: 0;
-    }
+/* ---- writing ---- */
+.posts { display: grid; gap: 2px; }
+.post {
+  display: grid;
+  grid-template-columns: 128px 1fr auto;
+  gap: 20px;
+  align-items: baseline;
+  text-decoration: none;
+  color: inherit;
+  padding: 18px 16px;
+  border-radius: var(--r-sm);
+  transition: background .16s ease;
+}
+.post:hover { background: var(--surface); }
+.post .date { font-family: var(--font-mono); font-size: var(--step--1); color: var(--faint); }
+.post .pt { font-size: var(--step-1); font-weight: 600; letter-spacing: -0.01em; }
+.post:hover .pt { color: var(--accent); }
+.post .rd { font-family: var(--font-mono); font-size: var(--step--1); color: var(--faint); }
+@media (max-width: 600px) {
+  .post { grid-template-columns: 1fr; gap: 4px; }
+  .post .rd { display: none; }
+}
 
-    #input-line .prompt { color: var(--prompt); }
+/* ---- contact ---- */
+.contact {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  padding: clamp(34px, 6vw, 64px);
+  box-shadow: var(--shadow-md);
+  text-align: center;
+}
+.contact h2 { font-size: var(--step-3); font-weight: 800; letter-spacing: -0.03em; }
+.contact p { color: var(--text-2); font-size: var(--step-1); max-width: 46ch; margin: 16px auto 0; }
+.contact .cta-row { justify-content: center; }
+.links { display: flex; gap: 8px; justify-content: center; margin-top: 26px; flex-wrap: wrap; }
+.links a {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--muted);
+  text-decoration: none;
+  padding: 8px 13px;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+}
+.links a:hover { color: var(--accent); border-color: var(--accent-line); }
 
-    #input {
-      flex: 1;
-      background: transparent;
-      border: none;
-      outline: none;
-      color: var(--strong);
-      font-family: var(--font);
-      font-size: 16px;
-      line-height: 1.75;
-      caret-color: var(--accent);
-    }
-
-    /* ── Links ── */
-    a {
-      color: var(--accent);
-      text-decoration: none;
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.15s;
-    }
-    a:hover { border-bottom-color: var(--accent); }
-
-    /* ── Sumfetch ── */
-    .sumfetch {
-      display: flex;
-      gap: 32px;
-      margin-bottom: 24px;
-    }
-
-    .sumfetch-ascii {
-      color: var(--accent);
-      line-height: 1.2;
-      font-size: 11px;
-      flex-shrink: 0;
-    }
-
-    .sumfetch-info { flex: 1; }
-
-    .sumfetch-name {
-      background: linear-gradient(90deg, #fb923c, #f43f5e, #a855f7);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      font-weight: 700;
-      font-size: 17px;
-      margin-bottom: 1px;
-    }
-
-    .sumfetch-host { color: var(--dimmed); margin-bottom: 6px; }
-
-    .sumfetch-sep { color: var(--sep); margin: 4px 0; display: block; width: 100%; overflow: hidden; white-space: nowrap; }
-
-    .sumfetch-row { display: flex; gap: 0; }
-    .sumfetch-key { color: #a855f7; min-width: 76px; }
-    .sumfetch-colon { color: var(--dimmed); margin-right: 8px; }
-    .sumfetch-val { color: var(--strong); }
-
-    .sumfetch-hint { color: var(--prompt); margin-top: 6px; font-size: 12px; }
-    .sumfetch-hint span { color: var(--text); }
-
-    /* ── Help grid ── */
-    .help-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-      gap: 4px 16px;
-    }
-
-    .help-row { display: flex; gap: 8px; }
-    .help-cmd { color: var(--accent); min-width: 80px; }
-    .help-desc { color: var(--text); }
-
-    /* ── Socials list ── */
-    .social-row {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      margin-bottom: 4px;
-    }
-
-    .social-platform { color: var(--prompt); min-width: 72px; }
-
-    /* ── Blog entries ── */
-    .blog-row { margin-bottom: 6px; }
-    .blog-num { color: var(--prompt); margin-right: 8px; }
-    .blog-date { color: var(--dimmed); margin-left: 8px; font-size: 12px; }
-    .blog-footer { color: var(--dimmed); margin-top: 8px; font-size: 12px; }
-
-    /* ── Error text ── */
-    .err { color: #f43f5e; }
-
-    /* ── Theme toggle ── */
-    #theme-toggle {
-      position: fixed;
-      top: 16px;
-      right: 20px;
-      background: none;
-      border: 1px solid var(--sep);
-      color: var(--dimmed);
-      font-family: var(--font);
-      font-size: 14px;
-      cursor: pointer;
-      padding: 4px 8px;
-      border-radius: 4px;
-      line-height: 1;
-      transition: color 0.15s, border-color 0.15s;
-      z-index: 100;
-    }
-    #theme-toggle:hover { color: var(--accent); border-color: var(--accent); }
-
-    /* ── Role header ── */
-    #role-header {
-      padding: 18px 0 14px;
-      border-bottom: 1px solid var(--sep);
-      flex-shrink: 0;
-    }
-
-    #role-header .role-title {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--strong);
-      letter-spacing: -0.3px;
-      line-height: 1.2;
-    }
-
-    #role-header .role-sub {
-      font-size: 12px;
-      color: var(--dimmed);
-      margin-top: 2px;
-    }
-
-    /* ── Testimonial strip ── */
-    #testimonial-strip {
-      flex-shrink: 0;
-      padding: 10px 0 14px;
-      border-top: 1px solid #111;
-    }
-
-    .t-inner {
-      display: flex;
-      gap: 8px;
-      align-items: flex-start;
-    }
-
-    .t-mark {
-      color: var(--accent);
-      font-size: 18px;
-      line-height: 1;
-      margin-top: 1px;
-      opacity: 0.4;
-      flex-shrink: 0;
-    }
-
-    .t-body { flex: 1; }
-
-    .t-quote {
-      font-size: 11px;
-      color: #525252;
-      font-style: italic;
-      line-height: 1.55;
-    }
-
-    .t-author {
-      font-size: 10px;
-      color: #383838;
-      margin-top: 3px;
-    }
-
-    .t-dots {
-      display: flex;
-      gap: 2px;
-      align-items: center;
-      margin-top: 8px;
-    }
-
-    .t-dot {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      background: transparent;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.15s;
-    }
-
-    .t-dot::after {
-      content: '';
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--sep);
-      transition: background 0.2s;
-    }
-
-    .t-dot.active::after { background: var(--accent); }
-    .t-dot:hover::after { background: var(--dimmed); }
-
-    /* ── Mobile ── */
-    @media (max-width: 480px) {
-      #terminal { padding: 20px 16px 16px; }
-      .sumfetch { flex-direction: column; gap: 16px; }
-      .sumfetch-ascii { display: none; }
-    }
-  </style>
+footer { padding: 40px 0 60px; border-top: 1px solid var(--border); }
+footer .wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--faint);
+}
+footer .wrap a { color: var(--muted); text-decoration: none; }
+footer .wrap a:hover { color: var(--accent); }
+</style>
 </head>
 <body>
-  <button id="theme-toggle" aria-label="toggle light/dark mode">☀</button>
-  <div id="terminal">
-    <div id="role-header">
-      <div class="role-title">Product Manager</div>
-      <div class="role-sub">who still gets close to the work</div>
-    </div>
-    <div id="output"></div>
-    <div id="input-line">
-      <span class="prompt">$</span>
-      <input id="input" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="terminal input">
-    </div>
-    <div id="testimonial-strip">
-      <div class="t-inner">
-        <div class="t-mark">"</div>
-        <div class="t-body">
-          <div class="t-quote" id="t-quote"></div>
-          <div class="t-author" id="t-author"></div>
-          <div class="t-dots" id="t-dots"></div>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="brand" href="#top"><b>ABHI</b></a>
+    <nav class="top">
+      <a href="#about">about</a>
+      <a href="#work">work</a>
+      <a href="#experience">career</a>
+      <a href="#words">praise</a>
+      <a href="#writing">writing</a>
+      <a class="cta" href="#contact">contact</a>
+      <button class="toggle" id="themeBtn" aria-label="Toggle theme" title="Toggle light / dark">◐</button>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="term-card">
+        <div class="term-head">
+          <span class="lights"><i></i><i></i><i></i></span>
+          <span class="ttl">abhi@swindon: ~ %</span>
+        </div>
+        <div class="term-body">
+          <div class="kicker"><span class="pill">PRODUCT MANAGER</span> who still gets close to the work</div>
+          <h1 class="headline">I turn fuzzy ideas into products that get <em>trusted, loved and shipped.</em><span class="caret"></span></h1>
+          <p class="sub">Commercial operator and builder. I write clearly, think in outcomes, and act like an owner — from the roadmap session to the system design review.</p>
+
+          <div class="meta-list">
+            <div class="meta-row"><span class="k">role</span><span class="v">product manager · builder · writer</span></div>
+            <div class="meta-row"><span class="k">based in</span><span class="v">swindon, u.k.</span></div>
+            <div class="meta-row"><span class="k">writing</span><span class="v"><a href="https://absieee.github.io/blog">absieee.github.io/blog</a></span></div>
+            <div class="meta-row"><span class="k">contact</span><span class="v"><a href="mailto:abs_sh@hotmail.co.uk">abs_sh@hotmail.co.uk</a></span></div>
+          </div>
+
+          <div class="cta-row">
+            <a class="btn primary" href="#work">View selected work →</a>
+            <a class="btn ghost" href="#contact">Get in touch</a>
+          </div>
         </div>
       </div>
+
+      <div class="portrait"><div class="ph">portrait<br>or candid<br>(drop your photo here)</div></div>
+    </div>
+  </section>
+
+  <!-- METRICS STRIP -->
+  <div class="metrics-wrap">
+    <div class="metrics">
+      <div class="metric"><div class="big">8<i>+</i></div><div class="cap">years building products</div></div>
+      <div class="metric"><div class="big">0→<i>1</i></div><div class="cap">comfortable from scratch</div></div>
+      <div class="metric"><div class="big">dev<i>+</i>pm</div><div class="cap">reads code, owns outcomes</div></div>
+      <div class="metric"><div class="big"><i>∞</i></div><div class="cap">roadmaps optimised</div></div>
     </div>
   </div>
-  <script src="testimonials.js"></script>
-  <script>
-    const ABHI_ASCII =
-`█████╗ ██████╗ ██╗  ██╗██╗
-██╔══██╗██╔══██╗██║  ██║██║
-███████║██████╔╝███████║██║
-██╔══██║██╔══██╗██╔══██║██║
-██║  ██║██████╔╝██║  ██║██║
-╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝╚═╝
 
-
-
-
-
-
-
-                     
-             |
-        _____|_____
-      .'     |     '.
-     /       |       \\
-    o        |        o
-     \\       |       /
-      '.___  |  ___.'
-            \\|/
-             |
-           __|__
-          /_____\\`;
-
-function renderSumfetch() {
-  const asciiLines = ABHI_ASCII.split('\n').map(l => `<div>${l}</div>`).join('');
-  return `
-    <div class="sumfetch">
-      <pre class="sumfetch-ascii">${asciiLines}</pre>
-      <div class="sumfetch-info">
-        <div class="sumfetch-name">abhishek sharma</div>
-        <div class="sumfetch-host">absieee@github.io</div>
-        <div class="sumfetch-sep">────────────────────────────────────────────────────────────</div>
-        <div class="sumfetch-row">
-          <span class="sumfetch-key">i am a</span>
-          <span class="sumfetch-colon">:</span>
-          <span class="sumfetch-val">product manager + builder + writer</span>
-        </div>
-        <div class="sumfetch-row">
-          <span class="sumfetch-key">based in</span>
-          <span class="sumfetch-colon">:</span>
-          <span class="sumfetch-val">swindon, u.k.</span>
-        </div>
-        <div class="sumfetch-row">
-          <span class="sumfetch-key">my thoughts</span>
-          <span class="sumfetch-colon">:</span>
-          <span class="sumfetch-val"><a href="https://absieee.github.io/blog/" target="_blank" rel="noreferrer">absieee.github.io/blog</a></span>
-        </div>
-        <div class="sumfetch-row">
-          <span class="sumfetch-key">contact me</span>
-          <span class="sumfetch-colon">:</span>
-          <span class="sumfetch-val"><a href="mailto:abs_sh@hotmail.co.uk">abs_sh@hotmail.co.uk</a></span>
-        </div>
-        <div class="sumfetch-sep">────────────────────────────────────────────────────────────</div>
-        <div class="sumfetch-hint">type <span>'help'</span> to see all commands</div>
+  <!-- ABOUT + CAPABILITIES -->
+  <section class="blk" id="about">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="prompt">about</h2>
       </div>
-    </div>`;
-}
-
-const output = document.getElementById('output');
-output.innerHTML = renderSumfetch();
-
-const input = document.getElementById('input');
-const history = [];
-let historyIndex = -1;
-
-document.getElementById('terminal').addEventListener('click', () => input.focus());
-input.focus();
-
-function typeAndRun(cmd, delay = 600) {
-  let i = 0;
-  input.disabled = true;
-  const interval = setInterval(() => {
-    input.value = cmd.slice(0, ++i);
-    if (i === cmd.length) {
-      clearInterval(interval);
-      setTimeout(() => {
-        input.value = '';
-        input.disabled = false;
-        input.focus();
-        runCommand(cmd);
-      }, 340);
-    }
-  }, 75);
-}
-
-setTimeout(() => typeAndRun('about'), 800);
-
-function appendEntry(cmd, responseHtml) {
-  const entry = document.createElement('div');
-  entry.className = 'entry';
-  entry.innerHTML = `
-    <div class="entry-cmd">
-      <span class="prompt">$</span>
-      <span>${escapeHtml(cmd)}</span>
+      <div class="about-grid">
+        <div class="about-text">
+          <p><strong>Hi, I'm Abhishek.</strong> I started as a developer, fell into product, and never looked back — which doesn't mean I forgot how to read code.</p>
+          <p>I write clearly, think commercially, and act like an owner. I enjoy turning fuzzy ideas into something a team can trust, customers actually love, and a business can ship with confidence.</p>
+          <p>I can be just as critical in a system design review as I can be visionary in a roadmap session or a sales pitch — <strong>no prompt or LLM needed.</strong></p>
+        </div>
+        <div class="caps">
+          <div class="cap-cell"><div class="h">Product strategy</div><p>Clarify the bets, sequence the roadmap, decide what's worth building.</p></div>
+          <div class="cap-cell"><div class="h">Discovery &amp; 0→1</div><p>Turn fuzzy ideas into a clear, shippable first version.</p></div>
+          <div class="cap-cell"><div class="h">Commercial impact</div><p>Tie product decisions to revenue, cost and the numbers leaders trust.</p></div>
+          <div class="cap-cell"><div class="h">Ops &amp; delivery</div><p>Optimise the process so the team ships with less friction.</p></div>
+        </div>
+      </div>
     </div>
-    <div class="entry-response">${responseHtml}</div>`;
-  output.appendChild(entry);
-  output.scrollTop = output.scrollHeight;
-}
+  </section>
 
-function escapeHtml(s) {
-  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
-
-function cmdHelp() {
-  return `
-    <div class="help-grid">
-      <div class="help-row"><span class="help-cmd">about</span><span class="help-desc">who I am</span></div>
-      <div class="help-row"><span class="help-cmd">work</span><span class="help-desc">what I do day-to-day</span></div>
-      <div class="help-row"><span class="help-cmd">blog</span><span class="help-desc">latest posts</span></div>
-      <div class="help-row"><span class="help-cmd">life</span><span class="help-desc">outside of work</span></div>
-      <div class="help-row"><span class="help-cmd">data</span><span class="help-desc">the battle card</span></div>
-      <div class="help-row"><span class="help-cmd">testimonials</span><span class="help-desc">what people say</span></div>
-      <div class="help-row"><span class="help-cmd">email</span><span class="help-desc">get in touch</span></div>
-      <div class="help-row"><span class="help-cmd">socials</span><span class="help-desc">find me elsewhere</span></div>
-      <div class="help-row"><span class="help-cmd">tennis</span><span class="help-desc">fancy a match?</span></div>
-      <div class="help-row"><span class="help-cmd">help</span><span class="help-desc">list all commands</span></div>
+  <!-- SELECTED WORK -->
+  <section class="blk" id="work">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="prompt">selected work</h2>
+        <span class="sec-note">// click through to the full write-up</span>
+      </div>
+      <div id="work-list" class="work-list"></div>
     </div>
-    <div style="color:var(--dimmed); margin-top:8px; font-size:12px;">[tab] autocomplete &nbsp;·&nbsp; [↑↓] history &nbsp;·&nbsp; [ctrl+l] clear</div>`;
-}
+  </section>
 
-function cmdClear() {
-  output.innerHTML = renderSumfetch();
-  return null;
-}
+  <!-- EXPERIENCE -->
+  <section class="blk" id="experience">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="prompt">experience</h2>
+      </div>
+      <div id="experience-tl" class="tl"></div>
+    </div>
+  </section>
 
-function cmdAbout() {
-  return `
-    Hi, I'm Abhishek. Started as a developer, fell into PM'ing and just never looked back; does not mean I forgot how to read code.<br><br>
-    I write clearly, think commercially, act like an owner, and enjoy turning fuzzy ideas into something that can be trusted, loved and shipped.<br><br>
-    Can be just as critical in a system design review as I can be a visionary in a roadmap session or sales pitch — no prompt or LLM needed.<br><br>
-    <span style="color:var(--dimmed)">→ </span><a onclick="runCommand('work'); return false;" href="#" style="color:var(--accent)">work</a>
-    <span style="color:var(--dimmed)"> for what I do day-to-day &nbsp;·&nbsp; </span>
-    <a onclick="runCommand('blog'); return false;" href="#" style="color:var(--accent)">blog</a>
-    <span style="color:var(--dimmed)"> for what I'm writing</span>`;
-}
+  <!-- TESTIMONIALS -->
+  <section class="blk" id="words">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="prompt">what people say</h2>
+      </div>
 
-async function cmdBlog() {
-  try {
-    const res = await fetch('https://absieee.github.io/blog/feed.xml');
-    if (!res.ok) throw new Error('bad response');
-    const xml = new DOMParser().parseFromString(await res.text(), 'application/xml');
-    const entries = Array.from(xml.querySelectorAll('entry')).slice(0, 3);
-    if (!entries.length) throw new Error('no entries');
+      <div id="pull-quote" class="pull"></div>
+      <div id="quotes-row" class="quotes-row"></div>
+      <div id="quotes-carousel" class="quotes-carousel" style="display:none">
+        <button class="carousel-btn carousel-prev" aria-label="Previous">&#8249;</button>
+        <div class="carousel-track-wrap">
+          <div id="carousel-track" class="carousel-track"></div>
+        </div>
+        <button class="carousel-btn carousel-next" aria-label="Next">&#8250;</button>
+        <div id="carousel-dots" class="carousel-dots"></div>
+      </div>
+    </div>
+  </section>
 
-    const rows = entries.map((entry, i) => {
-      const title = entry.querySelector('title')?.textContent || 'Untitled';
-      const link = entry.querySelector('link[rel="alternate"]')?.getAttribute('href')
-                || entry.querySelector('link')?.getAttribute('href')
-                || 'https://absieee.github.io/blog/';
-      const published = entry.querySelector('published')?.textContent || '';
-      const date = published
-        ? new Date(published).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
-        : '';
-      const latest = i === 0 ? `<span style="color:var(--accent);font-size:11px;margin-left:6px">[latest]</span>` : '';
-      return `
-        <div class="blog-row">
-          <span class="blog-num">[${i + 1}]</span>
-          <a href="${link}" target="_blank" rel="noreferrer">${escapeHtml(title)}</a>${latest}
-          ${date ? `<span class="blog-date">· ${date}</span>` : ''}
-        </div>`;
+  <!-- WRITING -->
+  <section class="blk" id="writing">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="prompt">writing</h2>
+        <span class="sec-note">// from absieee.github.io/blog</span>
+      </div>
+      <div id="posts-list" class="posts"></div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="blk" id="contact">
+    <div class="wrap">
+      <div class="contact">
+        <h2>Let's build something worth shipping.</h2>
+        <p>Hiring, collaborating, or just want to compare notes on product? I read every message.</p>
+        <div class="cta-row">
+          <a class="btn primary pill-btn" href="mailto:abs_sh@hotmail.co.uk">abs_sh@hotmail.co.uk</a>
+        </div>
+        <div class="links">
+          <a href="https://absieee.github.io/blog">blog</a>
+          <a href="https://github.com/absieee">github</a>
+          <a href="#top">linkedin</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Abhishek Sharma — built in Swindon, U.K.</span>
+    <a href="#top">back to top ↑</a>
+  </div>
+</footer>
+
+<script src="work.js"></script>
+<script src="experience.js"></script>
+<script src="testimonials.js"></script>
+<script>
+(function () {
+  function renderAuthor(t) {
+    return t.linkedin
+      ? '<a href="' + t.linkedin + '" target="_blank" rel="noopener noreferrer">' + t.author + '</a>'
+      : t.author;
+  }
+
+  function renderQuote(t) {
+    var q = t.emphasis
+      ? t.quote.replace(t.emphasis, '<span class="it">' + t.emphasis + '</span>')
+      : t.quote;
+    return '"' + q + '"';
+  }
+
+  var featured = TESTIMONIALS.find(function (t) { return t.featured; });
+  var highlighted = TESTIMONIALS.filter(function (t) { return t.highlight; });
+  var rest = TESTIMONIALS.filter(function (t) { return !t.featured && !t.highlight; });
+
+  function cardHTML(t) {
+    return '<div class="quote-card">' +
+      '<blockquote>' + renderQuote(t) + '</blockquote>' +
+      '<div class="by"><b>' + renderAuthor(t) + '</b><br>' + t.role + '</div>' +
+      '</div>';
+  }
+
+  if (featured) {
+    document.getElementById('pull-quote').innerHTML =
+      '<blockquote>' + renderQuote(featured) + '</blockquote>' +
+      '<div class="by"><b>' + renderAuthor(featured) + '</b> — ' + featured.role + '</div>';
+  }
+
+  document.getElementById('quotes-row').innerHTML = highlighted.map(cardHTML).join('');
+
+  if (rest.length > 0) {
+    var carousel = document.getElementById('quotes-carousel');
+    var track = document.getElementById('carousel-track');
+    var dotsEl = document.getElementById('carousel-dots');
+    var current = 0;
+
+    track.innerHTML = rest.map(cardHTML).join('');
+
+    dotsEl.innerHTML = rest.map(function (_, i) {
+      return '<button class="carousel-dot' + (i === 0 ? ' active' : '') + '" aria-label="Go to slide ' + (i + 1) + '"></button>';
     }).join('');
 
-    return `${rows}
-      <div class="blog-footer">
-        <a href="https://absieee.github.io/blog/" target="_blank" rel="noreferrer">→ absieee.github.io/blog</a>
-      </div>`;
-  } catch {
-    return `couldn't fetch feed — <a href="https://absieee.github.io/blog/" target="_blank" rel="noreferrer">visit absieee.github.io/blog directly</a>`;
-  }
-}
+    var dots = dotsEl.querySelectorAll('.carousel-dot');
 
-function cmdWork() {
-  return `
-    <div style="margin-bottom:14px;color:var(--strong);font-style:italic">
-      "The personality of a PM, or lack of it, shows up in the essence of a product."
-    </div>
-    <div style="margin-bottom:14px;">
-      I genuinely believe that. I also don't think there's any fun in waiting for permission,
-      and I'm not in the business of asking for forgiveness either. As long as I'm moving
-      the needle and both users and the business are better off, I'll back myself.
-    </div>
-    <div style="margin-bottom:6px;">
-      <span style="color:var(--accent)">→</span>
-      I sit close to the work. Roadmaps, specs, the occasional code debug or SQL query —
-      whatever it takes to stop a bad assumption from shipping.
-    </div>
-    <div style="margin-bottom:6px;">
-      <span style="color:var(--accent)">→</span>
-      Technical enough to be dangerous. Not a developer, but I've built things solo.
-      I know what's actually hard, and I ask sharper questions because of it.
-    </div>
-    <div style="margin-bottom:6px;">
-      <span style="color:var(--accent)">→</span>
-      I write clearly. Short docs, direct calls, status updates that don't need a meeting
-      to decode. If communication is a bottleneck, that's a PM problem.
-    </div>
-    <div>
-      <span style="color:var(--accent)">→</span>
-      Commercially minded means every feature is a bet. I try to make the cost and the expected
-      return explicit before anyone writes a single line of code.
-    </div>`;
-}
-
-function cmdInterests() {
-  return `
-    <div style="margin-bottom:10px;">
-      <span style="color:var(--strong)">Tennis</span><br>
-      Forehand: useful. Backhand: improving. Serve: a live experiment. <br>
-      Rackets broken: 2.5.
-    </div>
-    <div style="margin-bottom:10px;">
-      <span style="color:var(--strong)">Building</span><br>
-      Side projects, automations, prototypes, and the occasional game built out of<br>
-      pure joy. Go on - just type tennis to play a game right now.
-    </div>
-    <div>
-      <span style="color:var(--strong)">Reading</span><br>
-      From Lenny to Kent Beck to Shreyas Doshi - I will read, watch, listen and practice anything <br>
-      that tells a captivatity story or helps me make better decisions about how things genuinely work.
-    </div>`;
-}
-
-function cmdSocials() {
-  return `
-    <div class="social-row">
-      <span class="social-platform">github</span>
-      <a href="https://github.com/absieee" target="_blank" rel="noreferrer">github.com/absieee</a>
-    </div>
-    <div class="social-row">
-      <span class="social-platform">linkedin</span>
-      <a href="https://www.linkedin.com/in/abssh/" target="_blank" rel="noreferrer">linkedin.com/in/abssh</a>
-    </div>
-    <div class="social-row">
-      <span class="social-platform">instagram</span>
-      <a href="https://www.instagram.com/theproductjesus/" target="_blank" rel="noreferrer">instagram.com/theproductjesus</a>
-    </div>`;
-}
-
-function cmdEmail() {
-  window.location.href = 'mailto:abs_sh@hotmail.co.uk';
-  return `opening <a href="mailto:abs_sh@hotmail.co.uk">abs_sh@hotmail.co.uk</a>…`;
-}
-
-const tennisRecord = { wins: 0, losses: 0 };
-
-function cmdTennis() {
-  const id = 'tennis-' + Date.now();
-  setTimeout(() => playTennis(id), 100);
-  return `<div id="${id}"></div>`;
-}
-
-async function playTennis(containerId) {
-  const container = document.getElementById(containerId);
-  if (!container) return;
-  input.disabled = true;
-
-  const wait = ms => new Promise(r => setTimeout(r, ms));
-
-  const ln = (html = '', color = null) => {
-    const d = document.createElement('div');
-    d.style.lineHeight = '1.65';
-    if (color) d.style.color = color;
-    d.innerHTML = html;
-    container.appendChild(d);
-    output.scrollTop = output.scrollHeight;
-    return d;
-  };
-  const blank = () => ln('&nbsp;');
-
-  const waitKey = keys => new Promise(resolve => {
-    const h = e => {
-      const k = e.key.toLowerCase();
-      if (keys.includes(k)) { e.preventDefault(); document.removeEventListener('keydown', h); resolve(k); }
-    };
-    document.addEventListener('keydown', h);
-  });
-
-  // Your shots when serving
-  const YOUR_SERVE_SHOTS = {
-    s: { name: 'serve',
-         win:  ['ACE — clean, unreturnable 🎾', 'serve winner down the T 🎾'],
-         lose: ['double fault 😬', 'serve slapped back for a winner'] },
-    f: { name: 'forehand',
-         win:  ['forehand WINNER down the line 🎾', 'forehand cross-court — too good 🎾'],
-         lose: ['forehand out — clipped the baseline tape', 'forehand dragged wide under pressure'] },
-    b: { name: 'backhand',
-         win:  ['backhand WINNER cross-court 🎾', 'backhand down the line — unstoppable 🎾'],
-         lose: ['backhand clips the net', 'backhand wide — panic shot'] },
-    c: { name: 'slice',
-         win:  ['slice drifts just out of reach 🎾', 'sliced cross-court, terminal nets the reply'],
-         lose: ['slice sits up — put away easily', 'slice too short — smashed for a winner'] },
-    d: { name: 'drop shot',
-         win:  ['drop shot — barely clears, lands and dies 🎾', 'drop shot winner — terminal was miles back'],
-         lose: ['drop shot telegraphed — terminal pounces', 'drop shot clips the net cord'] },
-  };
-
-  // Your shots when returning terminal's serve
-  const YOUR_RETURN_SHOTS = {
-    f: { name: 'forehand return',
-         win:  ['return WINNER down the line 🎾', 'forehand return drilled cross-court — no chance 🎾'],
-         lose: ['return long — pace was too much', 'forehand return into the net'] },
-    b: { name: 'backhand return',
-         win:  ['backhand return WINNER 🎾', 'chipped backhand return — terminal wrong-footed 🎾'],
-         lose: ['backhand return wide — stretch too far', 'backhand return clipped the net'] },
-    l: { name: 'lob',
-         win:  ['lob over the charging terminal — lands in 🎾', 'perfect lob, terminal scrambles but it\'s past 🎾'],
-         lose: ['lob goes long', 'lob sat up — overhead smashed away'] },
-    d: { name: 'drop shot',
-         win:  ['drop shot off the return — terminal had no chance 🎾', 'cheeky drop shot return — complete surprise 🎾'],
-         lose: ['drop shot read early — terminal strolls up and puts it away', 'drop shot hits the tape'] },
-  };
-
-  // Terminal's serves (shown before your return)
-  const TERMINAL_SERVES = [
-    { text: 'kicker out wide — you\'re stretched', ace: false },
-    { text: 'flat serve down the T — it\'s in', ace: false },
-    { text: 'heavy topspin to the backhand', ace: false },
-    { text: 'wide to the forehand — you\'re on the run', ace: false },
-    { text: 'ACE — down the T, you never got near it', ace: true },
-    { text: 'double fault 😬 — point to you', ace: false, doubleFault: true },
-  ];
-
-  const pick = arr => arr[Math.floor(Math.random() * arr.length)];
-  const PTS = ['0', '15', '30', '40'];
-  let you = 0, them = 0;
-  let playerServing = true; // alternates each point
-
-  ln('<span style="color:var(--accent)">┌────────────────────────────┐</span>');
-  ln('<span style="color:var(--accent)">│   TERMINAL TENNIS          │</span>');
-  ln('<span style="color:var(--accent)">│   you vs the machine       │</span>');
-  ln('<span style="color:var(--accent)">└────────────────────────────┘</span>');
-  if (tennisRecord.wins + tennisRecord.losses > 0) {
-    blank();
-    ln(`<span style="color:var(--dimmed)">games — you: <span style="color:var(--strong)">${tennisRecord.wins}</span>  terminal: <span style="color:var(--strong)">${tennisRecord.losses}</span></span>`);
-  }
-  blank();
-  await wait(500);
-
-  while (you < 4 && them < 4) {
-    const youMark  = playerServing  ? ' <span style="color:var(--accent)" title="serving">▶</span>' : '';
-    const themMark = !playerServing ? ' <span style="color:var(--accent)" title="serving">▶</span>' : '';
-    ln(`<span style="color:var(--dimmed)">score — you: <span style="color:var(--strong)">${PTS[you]}</span>${youMark}  terminal: <span style="color:var(--strong)">${PTS[them]}</span>${themMark}</span>`);
-    await wait(150);
-
-    let youWin;
-
-    if (playerServing) {
-      const promptLine = ln(`<span style="color:var(--prompt)">[s]erve &nbsp;[f]orehand &nbsp;[b]ackhand &nbsp;[c]slice &nbsp;[d]rop</span> <span style="color:var(--accent)">▶</span>`);
-      const key = await waitKey(['s', 'f', 'b', 'c', 'd']);
-      const shot = YOUR_SERVE_SHOTS[key];
-      promptLine.innerHTML = `<span style="color:var(--strong)">${shot.name}</span>`;
-      await wait(260);
-      youWin = Math.random() < 0.5;
-      const desc = youWin ? pick(shot.win) : pick(shot.lose);
-      promptLine.innerHTML = `<span style="color:var(--strong)">${shot.name}</span> — <span style="color:var(--text)">${desc}</span>`;
-
-    } else {
-      const serve = pick(TERMINAL_SERVES);
-      ln(`<span style="color:var(--dimmed)">terminal: </span><span style="color:var(--text)">${serve.text}</span>`);
-      await wait(550);
-
-      if (serve.ace) {
-        youWin = false;
-      } else if (serve.doubleFault) {
-        youWin = true;
-      } else {
-        const promptLine = ln(`<span style="color:var(--prompt)">return: [f]orehand &nbsp;[b]ackhand &nbsp;[l]ob &nbsp;[d]rop</span> <span style="color:var(--accent)">▶</span>`);
-        const key = await waitKey(['f', 'b', 'l', 'd']);
-        const shot = YOUR_RETURN_SHOTS[key];
-        promptLine.innerHTML = `<span style="color:var(--strong)">${shot.name}</span>`;
-        await wait(260);
-        youWin = Math.random() < 0.5;
-        const desc = youWin ? pick(shot.win) : pick(shot.lose);
-        promptLine.innerHTML = `<span style="color:var(--strong)">${shot.name}</span> — <span style="color:var(--text)">${desc}</span>`;
-      }
+    function goTo(n) {
+      current = (n + rest.length) % rest.length;
+      track.style.transform = 'translateX(-' + (current * 100) + '%)';
+      dots.forEach(function (d, i) {
+        d.classList.toggle('active', i === current);
+      });
     }
 
-    await wait(380);
-    if (youWin) { you++;  ln('<span style="color:#22c55e">  ✓ your point</span>'); }
-    else        { them++; ln('<span style="color:#ef4444">  ✗ terminal\'s point</span>'); }
-    blank();
-    await wait(680);
-    playerServing = !playerServing;
-  }
-
-  if (you >= 4) {
-    tennisRecord.wins++;
-    await wait(300);
-    ln('<span style="color:var(--accent)">GAME, SET, MATCH — YOU WIN! 🏆</span>');
-    blank();
-    ln('<span style="color:var(--accent)">   .-~~~~-.</span>');
-    ln("<span style=\"color:var(--accent)\">  .'  () ()'.  </span>");
-    ln('<span style="color:var(--accent)"> /  () ♥  () \\</span>');
-    ln('<span style="color:var(--accent)">| ()  YOU  () |</span>');
-    ln('<span style="color:var(--accent)"> \\  () ♥  () /</span>');
-    ln("<span style=\"color:var(--accent)\">  '._______.'</span>");
-  } else {
-    tennisRecord.losses++;
-    await wait(400);
-    ln('<span style="color:#ef4444">game over. terminal wins.</span>');
-    await wait(600);
-    blank();
-    ln('<span style="color:#ef4444">FATAL ERROR: tennis.js has stopped working</span>');
-    await wait(250);
-    ln('<span style="color:var(--dimmed)">  at Object.smash (terminal.js:42:7)</span>');
-    await wait(200);
-    ln('<span style="color:var(--dimmed)">  at processNextTick (node:internal/process/task_queues:95:5)</span>');
-    await wait(400);
-    ln('<span style="color:#ef4444">▓▒░ CORE DUMP: 0xDEAD LOVE-ALL ░▒▓</span>');
-    await wait(200);
-    ln('<span style="color:#ef4444">████████████████████████████████████████</span>');
-    await wait(250);
-
-    const t = document.getElementById('terminal');
-    for (const x of [-7, 7, -5, 5, -3, 3, 0]) { t.style.transform = `translateX(${x}px)`; await wait(55); }
-    t.style.transform = '';
-
-    await wait(700);
-    ln('<span style="color:var(--dimmed)">...</span>');
-    await wait(1000);
-    blank();
-    ln('<span style="color:var(--accent)">boo, got you 😄</span>');
-    await wait(150);
-    ln("<span style=\"color:var(--dimmed)\">terminal is fine. you just can't play tennis.</span>");
-  }
-
-  input.disabled = false;
-  input.focus();
-}
-
-function cmdData() {
-  const art = `         |
-    _____|_____
-  .'     |     '.
- /       |       \\
-o        |        o
- \\       |       /
-  '.___  |  ___.'
-        \\|/
-         |
-       __|__
-      /_____\\`;
-
-  return `
-    <div style="font-family:var(--font);font-size:13px;line-height:1.6;width:360px;border:1px solid var(--accent);border-radius:3px;overflow:hidden;display:inline-block">
-      <div style="padding:8px 12px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--accent);background:#0d0500">
-        <span style="color:var(--strong);font-weight:700;font-size:15px;letter-spacing:1px">ABHISHEK SHARMA</span>
-        <span style="color:var(--accent)">✦✦✦✦✦✦✦</span>
-      </div>
-      <div style="padding:12px;background:#080400;border-bottom:1px solid var(--accent);text-align:center">
-        <pre style="color:var(--accent);font-size:11px;line-height:1.4;margin:0;display:inline-block;text-align:left">${art}</pre>
-      </div>
-      <div style="padding:5px 12px;border-bottom:1px solid var(--sep);color:var(--dimmed);font-size:12px">[ Developer → Product Manager / Dual-Type ]</div>
-      <div style="padding:10px 12px;border-bottom:1px solid var(--sep);font-size:13px;line-height:1.8;color:var(--text)">
-        <span style="color:var(--accent)">【 FIELD EFFECT 】</span> <span style="color:var(--dimmed)">While this card is in play, all ally cards gain increased ATK. Players around this card are compelled to raise their own standard.</span>
-      </div>
-      <div style="padding:10px 12px;border-bottom:1px solid var(--accent);font-size:13px;line-height:1.8">
-        <div>£1.5M/month QA overhead cut — <span style="color:var(--dimmed)">quality gate nobody asked for</span></div>
-        <div>350+ live projects on LLM framework — <span style="color:var(--dimmed)">validated before rollout</span></div>
-        <div>Watson rebuilt in 3 hours — <span style="color:var(--dimmed)">no approval, got promoted</span></div>
-        <div>47% cost reduction — <span style="color:var(--dimmed)">changed the north star metric</span></div>
-        <div>Lloyds Banking Group POC — <span style="color:var(--dimmed)">zero to signed off in 30 days</span></div>
-      </div>
-      <div style="padding:8px 12px;display:flex;justify-content:space-between;color:var(--strong);font-size:13px;font-weight:700">
-        <span>ATK / <span style="color:var(--accent)">9001</span></span>
-        <span>DEF / <span style="color:var(--accent)">∞</span></span>
-      </div>
-    </div>`;
-}
-
-function cmdTestimonials() {
-  if (typeof TESTIMONIALS === 'undefined' || !Array.isArray(TESTIMONIALS) || TESTIMONIALS.length === 0) {
-    return `<span style="color:var(--dimmed)">no testimonials loaded</span>`;
-  }
-  return TESTIMONIALS.map((t, i) => `
-    <div style="margin-bottom:14px">
-      <div style="color:var(--accent);font-size:12px;margin-bottom:2px">[${i + 1}/${TESTIMONIALS.length}]</div>
-      <div style="color:var(--strong);font-style:italic">"${t.quote}"</div>
-      <div style="color:var(--dimmed);font-size:12px;margin-top:3px">— ${t.author}${t.role ? ', ' + t.role : ''}</div>
-    </div>`).join('');
-}
-
-const COMMANDS = {
-  about:        cmdAbout,
-  work:         cmdWork,
-  blog:         cmdBlog,
-  life:         cmdInterests,
-  data:         cmdData,
-  testimonials: cmdTestimonials,
-  email:        cmdEmail,
-  socials:      cmdSocials,
-  tennis:       cmdTennis,
-  clear:        cmdClear,
-  help:         cmdHelp,
-  exit:         () => { window.close(); return null; },
-};
-
-function runCommand(cmd) {
-  const trimmed = cmd.trim().toLowerCase();
-  if (!trimmed) return;
-  if (trimmed.length > 40) return;
-  history.unshift(trimmed);
-  historyIndex = -1;
-
-  const fn = COMMANDS[trimmed];
-  if (!fn) {
-    appendEntry(trimmed, `<span class="err">command not found — type 'help' for available commands</span>`);
-    return;
-  }
-
-  const result = fn();
-  if (result && typeof result.then === 'function') {
-    appendEntry(trimmed, '<span style="color:var(--dimmed)">fetching…</span>');
-    result.then(html => {
-      if (html !== null) {
-        const entries = output.querySelectorAll('.entry');
-        const last = entries[entries.length - 1];
-        if (last) last.querySelector('.entry-response').innerHTML = html;
-      }
+    dots.forEach(function (d, i) {
+      d.addEventListener('click', function () { goTo(i); });
     });
-  } else if (result !== null) {
-    appendEntry(trimmed, result);
+
+    carousel.querySelector('.carousel-prev').addEventListener('click', function () { goTo(current - 1); });
+    carousel.querySelector('.carousel-next').addEventListener('click', function () { goTo(current + 1); });
+
+    carousel.style.display = 'flex';
   }
-}
+})();
 
-input.addEventListener('keydown', e => {
-  if (e.key === 'Enter') {
-    const val = input.value;
-    input.value = '';
-    runCommand(val);
+(function () {
+  var root = document.documentElement;
+  var btn = document.getElementById('themeBtn');
+  var saved = localStorage.getItem('abhi-theme');
+  if (saved) {
+    root.setAttribute('data-theme', saved);
+  } else if (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches) {
+    root.setAttribute('data-theme', 'dark');
   }
-
-  if (e.key === 'ArrowUp') {
-    e.preventDefault();
-    if (historyIndex < history.length - 1) {
-      historyIndex++;
-      input.value = history[historyIndex];
-    }
+  function set(t) {
+    root.setAttribute('data-theme', t);
+    localStorage.setItem('abhi-theme', t);
   }
+  btn.addEventListener('click', function () {
+    set(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+})();
+</script>
+<script>
+(function () {
+  document.getElementById('work-list').innerHTML = WORK.map(function (w, i) {
+    var idx = String(i + 1).padStart(3, '0');
+    var chips = w.chips.map(function (c) { return '<span class="chip">' + c + '</span>'; }).join('');
+    return '<a class="case" href="' + w.url + '">' +
+      '<span class="idx">' + idx + '</span>' +
+      '<div><h3>' + w.title + '</h3>' +
+      '<p class="desc">' + w.desc + '</p>' +
+      '<div class="chips">' + chips + '</div></div>' +
+      '<span class="arrow">→</span>' +
+      '</a>';
+  }).join('');
 
-  if (e.key === 'ArrowDown') {
-    e.preventDefault();
-    if (historyIndex > 0) {
-      historyIndex--;
-      input.value = history[historyIndex];
-    } else {
-      historyIndex = -1;
-      input.value = '';
-    }
-  }
+  document.getElementById('experience-tl').innerHTML = EXPERIENCE.map(function (e) {
+    var co = e.linkedin
+      ? '<a href="' + e.linkedin + '" target="_blank" rel="noopener noreferrer" class="tl-co">' + e.company + '</a>'
+      : '<span class="tl-co">' + e.company + '</span>';
+    return '<div class="tl-item">' +
+      '<div class="tl-when">' + e.when + '</div>' +
+      '<div><div class="tl-role">' + e.role + ' · ' + co + '</div>' +
+      '<p class="tl-desc">' + e.desc + '</p></div>' +
+      '</div>';
+  }).join('');
+})();
+</script>
+<script>
+(function () {
+  var FEED = 'https://absieee.github.io/blog/feed.xml';
+  var list = document.getElementById('posts-list');
 
-  if (e.key === 'Tab') {
-    e.preventDefault();
-    const val = input.value.trim().toLowerCase();
-    if (!val) return;
-    const matches = Object.keys(COMMANDS).filter(c => c.startsWith(val));
-    if (matches.length === 1) input.value = matches[0];
-  }
+  fetch(FEED)
+    .then(function (r) { return r.text(); })
+    .then(function (xml) {
+      var doc = new DOMParser().parseFromString(xml, 'application/xml');
+      var entries = Array.from(doc.querySelectorAll('entry'));
+      if (!entries.length) return;
 
-  if (e.key === 'l' && e.ctrlKey) {
-    e.preventDefault();
-    runCommand('clear');
-  }
-});
-
-    function initTestimonials() {
-      if (typeof TESTIMONIALS === 'undefined' || !Array.isArray(TESTIMONIALS) || TESTIMONIALS.length === 0) return;
-
-      const quotes = [...TESTIMONIALS];
-      for (let i = quotes.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [quotes[i], quotes[j]] = [quotes[j], quotes[i]];
-      }
-
-      let current = 0;
-      const quoteEl = document.getElementById('t-quote');
-      const authorEl = document.getElementById('t-author');
-      const dotsEl = document.getElementById('t-dots');
-      if (!quoteEl || !authorEl || !dotsEl) return;
-
-      quotes.forEach((_, i) => {
-        const dot = document.createElement('div');
-        dot.className = 't-dot' + (i === 0 ? ' active' : '');
-        dot.addEventListener('click', () => show(i));
-        dotsEl.appendChild(dot);
-      });
-
-      function show(i) {
-        current = i;
-        const t = quotes[i];
-        quoteEl.textContent = t.quote || '';
-        authorEl.textContent = t.author ? '— ' + t.author + (t.role ? ', ' + t.role : '') : '';
-        dotsEl.querySelectorAll('.t-dot').forEach((d, j) => {
-          d.classList.toggle('active', j === i);
-        });
-      }
-
-      show(0);
-      setInterval(() => show((current + 1) % quotes.length), 6000);
-    }
-
-    initTestimonials();
-
-    (function initTheme() {
-      const btn = document.getElementById('theme-toggle');
-      const saved = localStorage.getItem('theme') || 'dark';
-      if (saved === 'light') {
-        document.documentElement.setAttribute('data-theme', 'light');
-        btn.textContent = '☾';
-      }
-      btn.addEventListener('click', () => {
-        const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-        if (isLight) {
-          document.documentElement.removeAttribute('data-theme');
-          btn.textContent = '☀';
-          localStorage.setItem('theme', 'dark');
-        } else {
-          document.documentElement.setAttribute('data-theme', 'light');
-          btn.textContent = '☾';
-          localStorage.setItem('theme', 'light');
-        }
-      });
-    })();
-  </script>
+      list.innerHTML = entries.map(function (e) {
+        var title = e.querySelector('title') ? e.querySelector('title').textContent : '';
+        var url = e.querySelector('link[rel="alternate"]')
+          ? e.querySelector('link[rel="alternate"]').getAttribute('href')
+          : (e.querySelector('link') ? e.querySelector('link').getAttribute('href') : '#');
+        var published = e.querySelector('published') ? e.querySelector('published').textContent : '';
+        var d = published ? new Date(published) : null;
+        var dateStr = d
+          ? d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+          : '';
+        return '<a class="post" href="' + url + '" target="_blank" rel="noopener noreferrer">' +
+          '<span class="date">' + dateStr + '</span>' +
+          '<span class="pt">' + title + '</span>' +
+          '</a>';
+      }).join('');
+    })
+    .catch(function () {
+      list.innerHTML = '<a class="post" href="https://absieee.github.io/blog" target="_blank" rel="noopener noreferrer">' +
+        '<span class="pt">Visit the blog →</span></a>';
+    });
+})();
+</script>
 </body>
 </html>
