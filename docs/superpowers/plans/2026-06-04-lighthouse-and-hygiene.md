@@ -206,6 +206,44 @@ git commit -m "add Lighthouse CI quality gate on pushes to main"
 
 ---
 
+### Task 2b: Self-host fonts (added after second LHCI run)
+
+**Discovery:** With the photo fixed, performance plateaus at ~0.73 — the render-blocking `fonts.googleapis.com` stylesheet (3 families, ~110 KB from fonts.gstatic.com) dominates FCP (4.6s)/LCP under mobile throttling. User approved self-hosting.
+
+**Files:**
+- Create: `fonts/*.woff2` (latin subsets of the weights/styles the site requests)
+- Create: `css/fonts.css` (@font-face rules, `font-display: swap`, relative `../fonts/` URLs)
+- Modify: `index.html` (drop the two `fonts.g*` preconnects + Google Fonts stylesheet link; add `<link rel="stylesheet" href="css/fonts.css">` in their place)
+
+- [ ] **Step 1: Fetch the woff2 set Google serves for the site's exact font request**
+
+Fetch the existing css2 URL (index.html:11 — Instrument Serif ital@0;1 / Schibsted Grotesk wght 400–800 / JetBrains Mono wght 400–700) with a Chrome User-Agent so Google returns `woff2` @font-face blocks. Download the **latin** subset files into `fonts/` with descriptive names (e.g. `schibsted-grotesk-700.woff2`). Latin-only is acceptable (site is English).
+
+- [ ] **Step 2: Write css/fonts.css**
+
+One @font-face per family/weight/style copied from Google's CSS, with `src: url("../fonts/<file>.woff2") format("woff2")`, original `unicode-range` kept, and `font-display: swap` on every rule.
+
+- [ ] **Step 3: Update index.html head**
+
+Remove lines 9–11 (both preconnects + the Google css2 stylesheet link); add `<link rel="stylesheet" href="css/fonts.css">` before the tokens.css link. No other index.html changes.
+
+- [ ] **Step 4: Re-run the gate**
+
+`npx --yes @lhci/cli@0.14.x autorun` → all four ≥ 0.9 required. Verify in a served browser/curl that no requests go to fonts.googleapis.com/gstatic.com and the rendered fonts are correct. If performance is still < 0.9, report the audit breakdown verbatim and STOP (no threshold changes). Then `rm -rf .lighthouseci`.
+
+- [ ] **Step 5: Commits (in order)**
+
+```bash
+git add images/photo.jpg css/main.css css/tokens.css
+git commit -m "optimize portrait photo, fix contrast and tap-target audits"
+git add fonts/ css/fonts.css index.html
+git commit -m "self-host fonts with font-display swap, drop render-blocking google fonts"
+git add lighthouserc.json .github/workflows/lighthouse.yml
+git commit -m "add Lighthouse CI quality gate on pushes to main"
+```
+
+---
+
 ### Task 3: Page table stakes (404, OG meta, robots, sitemap)
 
 **Files:**
