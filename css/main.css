@@ -366,7 +366,7 @@ section.blk { padding: clamp(54px, 8vw, 92px) 0; border-top: 1px solid var(--bor
 .carousel-next { right: -52px; }
 .carousel-dots {
   display: flex;
-  gap: 7px;
+  gap: 16px;
 }
 .carousel-dot {
   width: 8px;
@@ -377,6 +377,17 @@ section.blk { padding: clamp(54px, 8vw, 92px) 0; border-top: 1px solid var(--bor
   cursor: pointer;
   padding: 0;
   transition: background 0.2s;
+  position: relative;
+}
+/* Enlarge tap target to >=24x24 without changing the visual dot size */
+.carousel-dot::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 24px;
+  height: 24px;
+  transform: translate(-50%, -50%);
 }
 .carousel-dot.active { background: var(--accent); }
 @media (max-width: 820px) {

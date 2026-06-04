@@ -55,7 +55,7 @@
   --text:      oklch(0.940 0.010 80);
   --text-2:    oklch(0.840 0.012 78);
   --muted:     oklch(0.680 0.014 72);
-  --faint:     oklch(0.560 0.014 68);
+  --faint:     oklch(0.610 0.014 68);   /* nudged up for 4.5:1 contrast on dark bg */
   --border:    oklch(0.300 0.012 64);
   --border-2:  oklch(0.360 0.014 64);
 
