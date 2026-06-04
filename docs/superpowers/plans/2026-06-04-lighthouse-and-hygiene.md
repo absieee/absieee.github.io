@@ -244,6 +244,52 @@ git commit -m "add Lighthouse CI quality gate on pushes to main"
 
 ---
 
+### Task 2c: Image srcset + perf threshold 0.7 (added after third LHCI run)
+
+**Discovery:** With fonts self-hosted, performance medians 0.78 (runs 0.74–0.79; a11y/BP/SEO all 1.0). Remaining costs: LCP image 4.5s (1200px portrait oversized for mobile) and an FCP floor (~2.9s) from three render-blocking CSS round-trips that can't be fixed without re-consolidating the CSS files. **User decision:** do the cheap image fix (srcset + preload), set the gate's performance threshold to 0.7 (comfortably above flake range), keep the other three categories at 0.9.
+
+**Files:**
+- Create: `images/photo-600.jpg` (600px-wide variant via sips)
+- Modify: `index.html` (img srcset/sizes + head preload — nothing else)
+- Modify: `lighthouserc.json` (performance minScore 0.9 → 0.7)
+
+- [ ] **Step 1: Create the 600px variant**
+
+```bash
+sips --resampleWidth 600 --setProperty format jpeg --setProperty formatOptions 65 images/photo.jpg --out images/photo-600.jpg
+```
+Expected: roughly 50–90 KB.
+
+- [ ] **Step 2: index.html — responsive image + preload**
+
+The portrait img (line ~61 area) gains srcset/sizes:
+```html
+<img src="images/photo.jpg" srcset="images/photo-600.jpg 600w, images/photo.jpg 1200w" sizes="(max-width: 860px) 300px, 400px" alt="Abhishek Sharma" style="width:100%;height:100%;object-fit:cover;display:block;">
+```
+In `<head>`, after the css links, add:
+```html
+<link rel="preload" as="image" imagesrcset="images/photo-600.jpg 600w, images/photo.jpg 1200w" imagesizes="(max-width: 860px) 300px, 400px">
+```
+
+- [ ] **Step 3: lighthouserc.json — performance threshold to 0.7**
+
+`"categories:performance": ["error", { "minScore": 0.7 }]` — other three stay at 0.9.
+
+- [ ] **Step 4: Re-run gate** — `npx --yes @lhci/cli@0.14.x autorun` → expected PASS. Then `rm -rf .lighthouseci`.
+
+- [ ] **Step 5: Commits (in order)**
+
+```bash
+git add images/photo.jpg css/main.css css/tokens.css
+git commit -m "optimize portrait photo, fix contrast and tap-target audits"
+git add fonts/ css/fonts.css index.html images/photo-600.jpg
+git commit -m "self-host fonts, add responsive portrait srcset with preload"
+git add lighthouserc.json .github/workflows/lighthouse.yml
+git commit -m "add Lighthouse CI quality gate on pushes to main"
+```
+
+---
+
 ### Task 3: Page table stakes (404, OG meta, robots, sitemap)
 
 **Files:**
