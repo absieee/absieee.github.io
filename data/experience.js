@@ -1,4 +1,4 @@
-var EXPERIENCE = [
+export const EXPERIENCE = [
   {
     when: "2025 — present",
     role: "Technical Product Owner",

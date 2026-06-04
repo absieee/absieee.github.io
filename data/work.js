@@ -1,4 +1,4 @@
-var WORK = [
+export const WORK = [
   {
     title: "Saved £1.5M/month by shipping Builder.ai's first QA automation tool",
     desc: "Lead PM for a greenfield code quality enforcement tool that cut bugs by 30% and eliminated £1.5M in monthly operational costs through automated validation across 350+ live customer projects.",

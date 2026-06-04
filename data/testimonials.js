@@ -1,4 +1,4 @@
-var TESTIMONIALS = [
+export const TESTIMONIALS = [
   {
     quote: "Forward thinking and driven to deliver. Always looking to optimise and support operational roadmaps. A great asset to any company.",
     emphasis: "A great asset to any company.",
