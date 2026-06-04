@@ -311,9 +311,7 @@ GitHub Pages serves this file's content at ANY unknown path (e.g. `/foo/bar/baz`
 <title>404 — Abhishek Sharma</title>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <meta name="robots" content="noindex">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Schibsted+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/fonts.css">
 <link rel="stylesheet" href="/css/tokens.css">
 <link rel="stylesheet" href="/css/main.css">
 </head>
