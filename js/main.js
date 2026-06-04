@@ -123,3 +123,22 @@ fetch(FEED)
   .catch(() => {
     postsList.innerHTML = `<a class="post" href="https://absieee.github.io/blog" target="_blank" rel="noopener noreferrer"><span class="pt">Visit the blog →</span></a>`;
   });
+
+// --- Mobile menu ---
+
+const menuBtn = document.getElementById('menuBtn');
+const menu = document.getElementById('mobileMenu');
+const menuClose = document.getElementById('menuClose');
+
+const setMenu = (open) => {
+  menu.hidden = !open;
+  menuBtn.setAttribute('aria-expanded', String(open));
+  document.body.classList.toggle('menu-open', open);
+};
+
+menuBtn.addEventListener('click', () => setMenu(true));
+menuClose.addEventListener('click', () => setMenu(false));
+menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && !menu.hidden) setMenu(false);
+});
