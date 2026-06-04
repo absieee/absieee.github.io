@@ -517,7 +517,7 @@ footer .wrap a:hover { color: var(--accent); }
         </div>
       </div>
 
-      <div class="portrait"><div class="ph">portrait<br>or candid<br>(drop your photo here)</div></div>
+      <div class="portrait"><img src="images/photo.jpg" alt="Abhishek Sharma" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
     </div>
   </section>
 
@@ -617,7 +617,7 @@ footer .wrap a:hover { color: var(--accent); }
         <div class="links">
           <a href="https://absieee.github.io/blog">blog</a>
           <a href="https://github.com/absieee">github</a>
-          <a href="#top">linkedin</a>
+          <a href="https://www.linkedin.com/in/abssh/" target="_blank" rel="noopener noreferrer">linkedin</a>
         </div>
       </div>
     </div>
@@ -725,13 +725,16 @@ footer .wrap a:hover { color: var(--accent); }
   document.getElementById('work-list').innerHTML = WORK.map(function (w, i) {
     var idx = String(i + 1).padStart(3, '0');
     var chips = w.chips.map(function (c) { return '<span class="chip">' + c + '</span>'; }).join('');
-    return '<a class="case" href="' + w.url + '">' +
+    var tag = w.url ? 'a' : 'div';
+    var open = w.url ? '<a class="case" href="' + w.url + '">' : '<div class="case">';
+    var close = w.url ? '</a>' : '</div>';
+    var arrow = w.url ? '<span class="arrow">→</span>' : '';
+    return open +
       '<span class="idx">' + idx + '</span>' +
       '<div><h3>' + w.title + '</h3>' +
       '<p class="desc">' + w.desc + '</p>' +
       '<div class="chips">' + chips + '</div></div>' +
-      '<span class="arrow">→</span>' +
-      '</a>';
+      arrow + close;
   }).join('');
 
   document.getElementById('experience-tl').innerHTML = EXPERIENCE.map(function (e) {
