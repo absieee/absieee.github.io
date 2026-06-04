@@ -1,0 +1,85 @@
+/* ============================================================
+   ABHI — Shared design tokens
+   Warm paper + true-dark, refined orange accent.
+   Used across all three directions + the design-system doc.
+   ============================================================ */
+
+:root {
+  /* ---- Warm light (default) ---- */
+  --bg:        oklch(0.987 0.006 78);   /* warm paper            */
+  --surface:   oklch(0.965 0.008 78);   /* raised card           */
+  --surface-2: oklch(0.945 0.010 78);   /* sunken / code well    */
+  --text:      oklch(0.235 0.012 60);   /* near-black, warm      */
+  --text-2:    oklch(0.345 0.012 60);   /* secondary body        */
+  --muted:     oklch(0.520 0.012 62);   /* labels, metadata      */
+  --faint:     oklch(0.640 0.010 64);   /* ghosted               */
+  --border:    oklch(0.892 0.008 72);   /* hairlines             */
+  --border-2:  oklch(0.835 0.010 72);   /* stronger divider      */
+
+  --accent:        oklch(0.605 0.165 47);  /* orange, AA on paper */
+  --accent-strong: oklch(0.520 0.150 45);  /* hover / pressed     */
+  --accent-tint:   oklch(0.945 0.045 65);  /* soft fill           */
+  --accent-line:   oklch(0.880 0.060 60);  /* tinted border       */
+  --on-accent:     oklch(0.995 0.004 78);  /* text on orange      */
+
+  --shadow-sm: 0 1px 2px oklch(0.4 0.03 60 / 0.06), 0 1px 3px oklch(0.4 0.03 60 / 0.05);
+  --shadow-md: 0 2px 6px oklch(0.4 0.03 60 / 0.07), 0 8px 24px oklch(0.4 0.03 60 / 0.07);
+  --shadow-lg: 0 4px 12px oklch(0.4 0.03 60 / 0.08), 0 20px 48px oklch(0.4 0.03 60 / 0.10);
+
+  /* ---- Type ---- */
+  --font-sans: "Schibsted Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Newsreader", Georgia, "Times New Roman", serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* ---- Scale (rem) ---- */
+  --step--1: clamp(0.82rem, 0.80rem + 0.1vw, 0.875rem);
+  --step-0:  clamp(1rem, 0.96rem + 0.18vw, 1.0625rem);
+  --step-1:  clamp(1.2rem, 1.12rem + 0.4vw, 1.4rem);
+  --step-2:  clamp(1.5rem, 1.34rem + 0.8vw, 2rem);
+  --step-3:  clamp(2rem, 1.7rem + 1.5vw, 3rem);
+  --step-4:  clamp(2.7rem, 2.1rem + 3vw, 4.5rem);
+  --step-5:  clamp(3.4rem, 2.4rem + 5vw, 6rem);
+
+  /* ---- Space / radius ---- */
+  --r-sm: 7px;
+  --r-md: 12px;
+  --r-lg: 18px;
+  --r-xl: 26px;
+  --maxw: 1080px;
+}
+
+:root[data-theme="dark"] {
+  --bg:        oklch(0.178 0.010 62);
+  --surface:   oklch(0.214 0.012 62);
+  --surface-2: oklch(0.246 0.013 62);
+  --text:      oklch(0.940 0.010 80);
+  --text-2:    oklch(0.840 0.012 78);
+  --muted:     oklch(0.680 0.014 72);
+  --faint:     oklch(0.560 0.014 68);
+  --border:    oklch(0.300 0.012 64);
+  --border-2:  oklch(0.360 0.014 64);
+
+  --accent:        oklch(0.760 0.155 58);
+  --accent-strong: oklch(0.820 0.150 60);
+  --accent-tint:   oklch(0.300 0.060 55);
+  --accent-line:   oklch(0.380 0.080 55);
+  --on-accent:     oklch(0.180 0.030 60);
+
+  --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.4);
+  --shadow-md: 0 2px 8px oklch(0 0 0 / 0.45), 0 12px 32px oklch(0 0 0 / 0.35);
+  --shadow-lg: 0 6px 18px oklch(0 0 0 / 0.5), 0 28px 60px oklch(0 0 0 / 0.45);
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; }
+
+::selection { background: var(--accent-tint); color: var(--text); }
+
+/* Smooth theme transition */
+:root, :root * {
+  transition: background-color .35s ease, border-color .35s ease, color .25s ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  :root, :root * { transition: none !important; }
+}
