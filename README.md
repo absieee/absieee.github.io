@@ -1,16 +1,51 @@
-# Abhishek Website
+# absieee.github.io
 
-Personal website for Abhishek, built as a single-page HTML site and intended to be published with GitHub Pages.
+Personal site for [Abhishek Sharma](https://absieee.github.io) — product manager, builder, writer.
 
-## Public site
+A zero-dependency static site: no build step, no framework, no npm. GitHub Pages serves the repo root directly.
 
-This repo is set up to publish from the root `index.html` file.
+## Structure
+
+```
+index.html      markup only
+404.html        not-found page (served by GitHub Pages at unknown paths)
+css/
+  fonts.css     @font-face rules for the self-hosted fonts
+  tokens.css    design tokens (colours, type scale, spacing)
+  main.css      all styles
+fonts/          self-hosted woff2 fonts (latin subsets)
+js/
+  main.js       all behaviour (ES module): rendering, theme toggle, blog feed
+data/
+  work.js       case studies
+  experience.js career timeline
+  testimonials.js quotes
+images/         photos (1200w + 600w portrait variants)
+robots.txt      crawler policy + sitemap pointer
+sitemap.xml     single-URL sitemap
+docs/           design specs and implementation plans
+.github/        CI workflows
+```
 
 ## Local preview
 
-Open `index.html` in a browser to preview the site locally.
+ES modules don't load over `file://`, so opening `index.html` directly shows empty sections. Serve the directory instead:
 
-## Notes
+```bash
+python3 -m http.server 8000
+# then open http://localhost:8000
+```
 
-- The site is intentionally static: no build step, no framework, no backend.
-- External links point to public GitHub, LinkedIn, email, and phone contact details.
+## Deploy
+
+Push to `main`. GitHub Pages publishes the repo root — there is nothing to build.
+
+## CI
+
+Every push to `main` runs a [Lighthouse CI](https://github.com/GoogleChrome/lighthouse-ci) quality gate (`.github/workflows/lighthouse.yml`): accessibility, best practices, and SEO must each score ≥ 90, and performance ≥ 70 (median of 3 runs), or the workflow fails. Thresholds live in `lighthouserc.json`.
+
+Run the same check locally:
+
+```bash
+npx @lhci/cli autorun
+```
