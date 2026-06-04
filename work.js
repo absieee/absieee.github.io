@@ -6,22 +6,22 @@ var WORK = [
   },
   {
     title: "Launched Sky's Virtual Assistant — 1.2M conversations, 64% resolution rate",
-    desc: "Shipped the Sky Virtual Assistant during COVID, driving 700k unique users and handling 1.2M conversations at a 64% self-serve resolution rate. Secured £400k in additional funding for in-house platform development.",
+    desc: "Shipped the Sky Virtual Assistant during COVID, driving 700k unique users, 1.2M conversations and a 64% self-serve resolution rate.",
     chips: ["0→1","conversational AI", "Sky"]
   },
   {
     title: "Closed a £500k enterprise SaaS deal by white-labelling for a petroleum giant",
-    desc: "Secured a £500k white-label contract with a Thai petroleum company by adapting Zeigo's B2B renewable energy platform into a compliance-ready, client-trusted product.",
+    desc: "Secured a £500k white-label contract with a Thai petroleum giant by adapting Zeigo's B2B renewable energy platform into a compliance-ready, client-trusted product.",
     chips: ["enterprise", "B2B SaaS", "GTM", "Zeigo"]
   },
   {
     title: "Built a proprietary LLM framework to modernise 350+ client codebases",
-    desc: "Spearheaded Builder.ai's Gen AI initiative — a proprietary LLM framework for automated code generation and tech stack upgrades. Delivered 14 high-visibility migrations across Ruby, React, React Native and Node with zero disruption to live projects.",
+    desc: "Spearheaded Builder.ai's Gen AI initiative: a proprietary LLM framework for automated code generation and tech stack upgrades. Delivered 14 high-visibility migrations across Ruby, React, React Native and Node with 0 disruption to 350+ projects.",
     chips: ["platform", "gen AI", "Builder.ai"]
   },
   {
     title: "Legacy migration with zero downstream breakage",
-    desc: "Led Builder.ai's migration of core automation infrastructure from .NET to Python. Discovered undocumented Ruby and Node translators buried in the legacy codebase mid-requirements, ran a code archaeology session with an engineer to map the full dependency tree, and shipped with 0 downstream services broken.",
+    desc: "Led Builder.ai's migration of core automation infrastructure from .NET to Python. Shipped in 4 months with 0 downstream services broken.",
     chips: ["migration", "platform", "Builder.ai"]
   }
 ];

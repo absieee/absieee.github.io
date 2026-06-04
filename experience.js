@@ -4,7 +4,7 @@ var EXPERIENCE = [
     role: "Technical Product Owner",
     company: "Aveni",
     linkedin: "https://www.linkedin.com/company/aveni-ai/",
-    desc: "0-1 delivery of RegTech suite (Agent Approve & Agent Assure). First proof of value to Tier 1 UK bank within 1 month."
+    desc: "0-1 strategy and delivery of RegTech suite (Agent Approve & Agent Assure). First proof of value to Tier 1 UK bank within 1 month."
   },
   {
     when: "May – Sep 2025",
