@@ -34,7 +34,7 @@ export const TESTIMONIALS = [
     quote: "You are the most talented technical project manager I have ever met. I have been working for 15 years in this industry.",
     emphasis: "I have been working for 15 years in this industry.",
     author: "Jerry Thimothy J",
-    role: "Colleague",
+    role: "Architect · Builder.ai",
     linkedin: ""
   },
   {
