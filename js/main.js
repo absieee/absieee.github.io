@@ -52,6 +52,16 @@ if (rest.length > 0) {
   dots.forEach((d, i) => d.addEventListener('click', () => goTo(i)));
   carousel.querySelector('.carousel-prev').addEventListener('click', () => goTo(current - 1));
   carousel.querySelector('.carousel-next').addEventListener('click', () => goTo(current + 1));
+  const wrap = carousel.querySelector('.carousel-track-wrap');
+  let startX = null;
+  wrap.addEventListener('pointerdown', (e) => { startX = e.clientX; });
+  wrap.addEventListener('pointerup', (e) => {
+    if (startX === null) return;
+    const dx = e.clientX - startX;
+    if (Math.abs(dx) > 40) goTo(dx < 0 ? current + 1 : current - 1);
+    startX = null;
+  });
+  wrap.addEventListener('pointercancel', () => { startX = null; });
   carousel.style.display = 'flex';
 }
 
