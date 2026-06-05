@@ -216,7 +216,7 @@ h1.headline em { font-style: normal; color: var(--accent); }
   padding: 18px;
   border-radius: var(--r-sm);
 }
-@media (max-width: 860px) { .portrait { max-width: 300px; min-height: 320px; order: -1; } }
+@media (max-width: 860px) { .portrait { max-width: 300px; min-height: 320px; } }
 
 /* ---- metrics strip ---- */
 .metrics-wrap {
