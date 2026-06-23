@@ -8,12 +8,19 @@ export const TESTIMONIALS = [
     featured: true
   },
   {
+    quote: "It was clear that you were the right leader to push this project forward - from the way you motivated the team and set standards for communication, to your decision-making.",
+    emphasis: "the right leader",
+    author: "Aleks Liauska",
+    role: "Data & BI Lead",
+    linkedin: "https://www.linkedin.com/in/aleksasli/",
+    highlight: true
+  },
+  {
     quote: "The best PM I've ever worked with. His technical background makes him really know what he's doing.",
     emphasis: "really know what he's doing.",
     author: "Mert Duzgun",
     role: "Founder · Vinena Studio",
-    linkedin: "https://www.linkedin.com/in/mertduzgun/",
-    highlight: true
+    linkedin: "https://www.linkedin.com/in/mertduzgun/"
   },
   {
     quote: "I have seen him develop from a conversational analyst to a Product Owner with ease and great expertise. The projects I have worked on with him have all been extremely successful.",
@@ -24,36 +31,36 @@ export const TESTIMONIALS = [
   },
   {
     quote: "There is always one person steering the ship and that, my friend, is you.",
-    emphasis: "is you",
+    emphasis: "one person steering the ship",
     author: "Nathan Ziabek",
     role: "Software Engineer · Builder.ai",
     linkedin: "https://www.linkedin.com/in/nathanziabek/",
     highlight: true
   },
   {
-    quote: "You are the most talented technical project manager I have ever met. I have been working for 15 years in this industry.",
-    emphasis: "I have been working for 15 years in this industry.",
+    quote: "You are the most talented technical project manager I have ever met.",
+    emphasis: "most talented",
     author: "Jerry Thimothy J",
     role: "Architect · Builder.ai",
     linkedin: ""
   },
   {
     quote: "You know a lot about what's done here, have a great attitude and get actual shit done.",
-    emphasis: "get actual shit done.",
+    emphasis: "get actual shit done",
     author: "Pedro Dias",
     role: "Senior Software Engineer · Builder.ai",
     linkedin: "https://www.linkedin.com/in/pedrodiasme/"
   },
   {
     quote: "I admire your work ethic. You find fulfilment in your work, which is something you should cherish.",
-    emphasis: "admire your work ethic",
+    emphasis: "find fulfilment",
     author: "Istvan Hoka",
     role: "Staff Software Engineer · Builder.ai",
     linkedin: "https://www.linkedin.com/in/ihoka/"
   },
   {
     quote: "Best managerial skills you have. I had gone through lot of managers in my career. Never seen a person like you.",
-    emphasis: "Never seen a person like you",
+    emphasis: "managerial skills",
     author: "Dharani Arun",
     role: "Colleague",
     linkedin: ""
