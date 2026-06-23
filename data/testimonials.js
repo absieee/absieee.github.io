@@ -16,19 +16,12 @@ export const TESTIMONIALS = [
     highlight: true
   },
   {
-    quote: "There is always one person steering the ship and that, my friend, is you.",
-    emphasis: "one person steering the ship",
-    author: "Nathan Ziabek",
-    role: "Software Engineer · Builder.ai",
-    linkedin: "https://www.linkedin.com/in/nathanziabek/",
-    highlight: true
-  },
-  {
     quote: "The best PM I've ever worked with. His technical background makes him really know what he's doing.",
     emphasis: "best PM",
     author: "Mert Duzgun",
     role: "Founder · Vinena Studio",
-    linkedin: "https://www.linkedin.com/in/mertduzgun/"
+    linkedin: "https://www.linkedin.com/in/mertduzgun/",
+    highlight: true
   },
   {
     quote: "I admire your work ethic. You find fulfilment in your work, which is something you should cherish.",
@@ -45,6 +38,14 @@ export const TESTIMONIALS = [
     linkedin: ""
   },
   {
+    quote: "There is always one person steering the ship and that, my friend, is you.",
+    emphasis: "one person steering the ship",
+    author: "Nathan Ziabek",
+    role: "Software Engineer · Builder.ai",
+    linkedin: "https://www.linkedin.com/in/nathanziabek/",
+    highlight: true
+  },
+  {
     quote: "I have seen him develop from a conversational analyst to a Product Owner with ease and great expertise. The projects I have worked on with him have all been extremely successful.",
     emphasis: "have all been extremely successful.",
     author: "Jaspreet Dhaliwal",
@@ -53,8 +54,8 @@ export const TESTIMONIALS = [
   },
   ,
   {
-    quote: "You are the most talented technical project manager I have ever met.",
-    emphasis: "most talented",
+    quote: "You are the most talented technical product manager I have ever met.",
+    emphasis: "most talented technical product manager",
     author: "Jerry Thimothy J",
     role: "Architect · Builder.ai",
     linkedin: ""
